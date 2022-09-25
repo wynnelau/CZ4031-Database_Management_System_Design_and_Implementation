@@ -4,6 +4,7 @@
 int main() {
 
     Address x1 = Address(1,2);
+
     Address x2 = Address(1,3);
     Address x3 = Address(1,4);
     Address x4 = Address(2,1);
@@ -21,6 +22,7 @@ int main() {
 
 
 
+    //Block Size is set to 40. so now n = 3!
     BPlusTree* index = new BPlusTree(40);
 
     index->insert(1,&x1);
