@@ -9,18 +9,17 @@ using namespace std;
 #include <iostream>
 #include <vector>
 
-
-class Node {
+class Node
+{
 
 private:
     bool isLeaf;
     bool isRoot;
     vector<int> keys;
-    Node* parent;
-    vector<Node*> children;
+    Node *parent;
+    vector<Node *> children;
 
 public:
-
     // All these functions look good!
     Node();
     bool getIsLeaf();
@@ -35,22 +34,20 @@ public:
     int findSmallestKey();
     void deleteNode();
 
-    //Parent
-    Node* getParent();
-    void setParent(Node* newParentToSet);
+    // Parent
+    Node *getParent();
+    void setParent(Node *newParentToSet);
 
-    //Children
-    vector<Node*> getChildren();
-    Node* getChild(int index);
-    int addChild(Node* child);
-    void deleteChild(Node* child);
+    // Children
+    vector<Node *> getChildren();
+    Node *getChild(int index);
+    int addChild(Node *child);
+    void deleteChild(Node *child);
     void deleteChildren();
-    Node* getChildBefore(Node* node);
-    Node* getChildAfter(Node* node);
+    Node *getChildBefore(Node *node);
+    Node *getChildAfter(Node *node);
 
     void addChild(Node *child, int index);
 };
 
-
-
-#endif 
+#endif

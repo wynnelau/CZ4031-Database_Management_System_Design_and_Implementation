@@ -11,24 +11,23 @@
 
 using namespace std;
 
-
-class LeafNode: public Node{
+class LeafNode : public Node
+{
 
 private:
-    vector<vector<Address*>> records;
-    LeafNode* next{};
+    vector<vector<Address *>> records;
+    LeafNode *next{};
 
 public:
     LeafNode();
-    vector<vector<Address*>> getRecords();
-    vector<Address*> getRecord(int index);
-    int addRecordAndKey(int key, vector<Address*> address);
-    void addRecord(int index, Address* address);
-    LeafNode* getNext();
-    void setNext(LeafNode* sibling);
+    vector<vector<Address *>> getRecords();
+    vector<Address *> getRecord(int index);
+    int addRecordAndKey(int key, vector<Address *> address);
+    void addRecord(int index, Address *address);
+    LeafNode *getNext();
+    void setNext(LeafNode *sibling);
     void deleteRecord(int index);
     void deleteRecords();
 };
 
-
-#endif 
+#endif
