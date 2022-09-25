@@ -9,6 +9,7 @@
 
 4. Click on "Build" on the tab on the bottom to build the project.
 5. On the task bar, click on the "run and debug" button, and select [(lldb) launch] as your debugger. Take note that only the code in main.cpp is able to run. 
+6. Output is shown in the debug console.
 
 If you have any problems with CMake, you can check out their tutorial page here:
 [https://code.visualstudio.com/docs/cpp/CMake-linux
