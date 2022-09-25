@@ -51,8 +51,8 @@ After resolving merge conflicts(if any) submit a pull request on GitHub.
 
 ### Submitting a pull request
 
-1. Go to the [repo](github.com/pehweihang/cryspbook) on GitHub.
-2. Click on [Pull Requests](github.com/pehweihang/cryspbook/pulls)
+1. Go to the repo on GitHub.
+2. Click on [Pull Requests]([github.com/pehweihang/cryspbook/pulls](https://github.com/akshitkaranam/CZ4031_Project1/pulls))
 3. Click on New pull request.
 4. Request a merge to master branch.
 
