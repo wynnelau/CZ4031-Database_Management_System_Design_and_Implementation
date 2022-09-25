@@ -1,7 +1,7 @@
 ## Using VSCode
 
 1. Install C++ Extension Pack
-2. Clone the repo in VSCode into a directory of your choice.
+2. Clone the repo into a directory of your choice.
 
 	`git clone https://github.com/akshitkaranam/CZ4031_Project1.git`
 
