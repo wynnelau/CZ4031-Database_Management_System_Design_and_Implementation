@@ -137,13 +137,17 @@ void BPlusTree::splitAndInsertIntoLeaf(LeafNode *first, int keyToBeInserted, Add
         {
             i++;
             keys.at(i) = keyToBeInserted;
+            addresses.at(i) = addressListToBeInserted;
             break;
         }
 
         keys.at(i + 1) = keys.at(i);
+        addresses.at(i + 1) = addresses.at(i);
+
         if (i == 0)
         {
             keys.at(i) = keyToBeInserted;
+            addresses.at(i) = addressListToBeInserted;
             break;
         }
     }
@@ -302,4 +306,66 @@ void BPlusTree::printBPlusTree(int level, int maxLevel, Node *curNode)
     {
         printBPlusTree(level + 1, maxLevel, child);
     }
+}
+
+vector<Address *> BPlusTree::getRecordsWithKey(int key)
+{
+    cout << "\n\nGetting records with index key: " + to_string(key) << endl;
+    int nodeAccess = 0;
+    vector<Address *> requiredAddresses;
+    Node *curNode = root;
+    Node *parentNode;
+
+    int numberOfNodesVisited = 0;
+    while (!curNode->getIsLeaf())
+    {
+        numberOfNodesVisited++;
+
+        if (numberOfNodesVisited <= 5)
+        {
+            cout << "[";
+            for (int i = 0; i < curNode->getKeys().size(); i++)
+            {
+                cout << to_string(curNode->getKey(i)) + ",";
+            }
+            cout << "]" << endl;
+        }
+
+        parentNode = curNode;
+        for (int i = 0; i < parentNode->getKeys().size(); i++)
+        {
+
+            if (key <= parentNode->getKey(i))
+            {
+                curNode = parentNode->getChild(i);
+                nodeAccess++;
+                break;
+            }
+
+            if (i == parentNode->getKeys().size() - 1)
+            {
+                curNode = parentNode->getChild(i + 1);
+                nodeAccess++;
+                break;
+            }
+        }
+    }
+
+    cout << "[";
+    for (int i = 0; i < curNode->getKeys().size(); i++)
+    {
+        cout << to_string(curNode->getKey(i)) + ",";
+    }
+    cout << "]" << endl;
+
+    LeafNode *leaf = (LeafNode *)curNode;
+    vector<int> keys = leaf->getKeys();
+    for (int i = 0; i < keys.size(); i++)
+    {
+        if (keys.at(i) == key)
+        {
+            requiredAddresses = leaf->getRecord(i);
+        }
+    }
+    return requiredAddresses;
 }

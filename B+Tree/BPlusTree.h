@@ -25,14 +25,19 @@ public:
     BPlusTree(int blockSize);
     LeafNode* createFirst();
     void insertToLeaf(LeafNode* leaf, int key, Address* address);
-//    void searchLeaf(int key);
     void insert(int key, Address* address);
     void splitAndInsertIntoLeaf(LeafNode* old, int key, Address* address);
     void splitParent(Node* parent, Node* child);
     LeafNode* getLeafNode(int key);
+    
+    vector<Address*> getRecordsWithKey(int key);
+    
+    
+    
     void printBPlusTree(int level, int maxLevel,  Node* curNode);
-
     void printBPlusTree();
+
+
 };
 
 

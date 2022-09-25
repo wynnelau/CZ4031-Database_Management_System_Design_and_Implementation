@@ -12,6 +12,8 @@ class Address {
 
 public:
     Address(int blockNumber, int offset);
+    int getBlockNumber();
+    int getOffSet();
 };
 
 
