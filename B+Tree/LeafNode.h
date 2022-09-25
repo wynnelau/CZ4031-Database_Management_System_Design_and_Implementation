@@ -2,8 +2,8 @@
 // Created by Akshit Karanam on 21/9/22.
 //
 
-#ifndef CZ4031_MINE_LEAFNODE_H
-#define CZ4031_MINE_LEAFNODE_H
+#ifndef LEAFNODE_H
+#define LEAFNODE_H
 #include "Node.h"
 #include "../Address.h"
 #include <iostream>
@@ -32,4 +32,4 @@ public:
 };
 
 
-#endif //CZ4031_MINE_LEAFNODE_H
+#endif 

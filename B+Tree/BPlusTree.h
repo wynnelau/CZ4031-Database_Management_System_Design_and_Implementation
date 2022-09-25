@@ -2,8 +2,8 @@
 // Created by Akshit Karanam on 21/9/22.
 //
 
-#ifndef CZ4031_MINE_BPLUSTREE_H
-#define CZ4031_MINE_BPLUSTREE_H
+#ifndef BPLUSTREE_H
+#define BPLUSTREE_H
 
 #include "LeafNode.h"
 #include "Node.h"
@@ -38,4 +38,4 @@ public:
 
 
 
-#endif //CZ4031_MINE_BPLUSTREE_H
+#endif

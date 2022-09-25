@@ -3,8 +3,8 @@
 //
 using namespace std;
 
-#ifndef CZ4031_MINE_NODE_H
-#define CZ4031_MINE_NODE_H
+#ifndef NODE_H
+#define NODE_H
 
 #include <iostream>
 #include <vector>
@@ -54,4 +54,4 @@ public:
 
 
 
-#endif //CZ4031_MINE_NODE_H
+#endif 
