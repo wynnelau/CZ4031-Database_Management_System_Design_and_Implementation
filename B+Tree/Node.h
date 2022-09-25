@@ -43,7 +43,6 @@ public:
     vector<Node*> getChildren();
     Node* getChild(int index);
     int addChild(Node* child);
-    virtual void splitPrep();
     void deleteChild(Node* child);
     void deleteChildren();
     Node* getChildBefore(Node* node);

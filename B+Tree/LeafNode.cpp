@@ -47,10 +47,7 @@ void LeafNode::setNext(LeafNode *sibling){
     next = sibling;
 }
 
-void LeafNode::splitPrep() {
-    deleteAllKeys();
-    records.clear();
-}
+
 
 void LeafNode::deleteRecord(int index) {
     deleteKey(index);

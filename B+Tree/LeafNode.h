@@ -26,7 +26,6 @@ public:
     void addRecord(int index, Address* address);
     LeafNode* getNext();
     void setNext(LeafNode* sibling);
-    void splitPrep() override;
     void deleteRecord(int index);
     void deleteRecords();
 };

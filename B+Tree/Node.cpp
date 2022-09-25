@@ -146,10 +146,7 @@ void Node::addChild(Node *child,int index) {
     }
 }
 
-void Node::splitPrep() {
-    deleteAllKeys();
-    children.clear();
-}
+
 
 void Node::deleteChild(Node *child) {
     children.erase(std::remove(children.begin(), children.end(), child), children.end());
