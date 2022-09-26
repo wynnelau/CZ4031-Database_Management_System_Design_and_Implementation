@@ -308,21 +308,24 @@ void BPlusTree::printBPlusTree(int level, int maxLevel, Node *curNode)
     }
 }
 
+
+// FOR EXPERIMENT 3
 vector<Address *> BPlusTree::getRecordsWithKey(int key)
 {
-    cout << "\n\nGetting records with index key: " + to_string(key) << endl;
-    int nodeAccess = 0;
+    cout << "Getting records with index key: " + to_string(key) << endl;
+    cout << "Index nodes visited: " << endl;
+
+    int nodeAccess = 1; //starting from root
     vector<Address *> requiredAddresses;
     Node *curNode = root;
     Node *parentNode;
 
-    int numberOfNodesVisited = 0;
     while (!curNode->getIsLeaf())
     {
-        numberOfNodesVisited++;
 
-        if (numberOfNodesVisited <= 5)
+        if (nodeAccess <= 5)
         {
+            cout<< to_string(nodeAccess) + ": ";
             cout << "[";
             for (int i = 0; i < curNode->getKeys().size(); i++)
             {
@@ -351,6 +354,7 @@ vector<Address *> BPlusTree::getRecordsWithKey(int key)
         }
     }
 
+    cout<< to_string(nodeAccess) + ": ";
     cout << "[";
     for (int i = 0; i < curNode->getKeys().size(); i++)
     {
@@ -367,5 +371,7 @@ vector<Address *> BPlusTree::getRecordsWithKey(int key)
             requiredAddresses = leaf->getRecord(i);
         }
     }
+
+    cout<<"Total number of index nodes visited: " + to_string(nodeAccess)<<endl;
     return requiredAddresses;
 }

@@ -1,6 +1,24 @@
 #include <iostream>
 #include "B+Tree/BPlusTree.h"
 
+ void experiment3(BPlusTree* index){
+    cout<<"\n\nStarting Experiment 3"<<endl;
+    vector<Address*> addresses = index->getRecordsWithKey(20);
+    // TODO: using these addresses, get the records
+    // TODO: Get the number and contents of the data blocks (show the first 5).
+    // TODO: with the obtained records find the avgRating
+
+    //For now, print the addresses.
+    cout<<"\n";
+    for(int i =0; i<addresses.size();i++){
+        Address* address = addresses.at(i);
+        cout<<  "Block No: " + to_string(address->getBlockNumber())  + ", Offset: " + to_string(address->getOffSet())<<endl;
+    }
+}
+
+
+
+
 int main()
 {
     // Block Size is set to 40. so now n = 3!
@@ -13,21 +31,7 @@ int main()
         index->insert(arr[i],new Address(i,1));
     }
 
-    index->printBPlusTree();
-
-    vector<Address*> addressesRequired = index->getRecordsWithKey(20);
-
-    cout<<"\n";
-    for(int i =0; i<addressesRequired.size();i++){
-        Address* address = addressesRequired.at(i);
-        cout<<  "Block No: " + to_string(address->getBlockNumber())  + ", Offset: " + to_string(address->getOffSet())<<endl;
-        
-    }
-
-
-
-
-
-
+//    index->printBPlusTree();
+    experiment3(index);
     return 0;
 }
