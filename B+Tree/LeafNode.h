@@ -23,7 +23,7 @@ public:
     vector<vector<Address *>> getRecords();
     vector<Address *> getRecord(int index);
     int addRecordAndKey(int key, vector<Address *> address);
-    void addRecord(int index, Address *address);
+    void addRecordToExistingLeafKey(int index, Address *address);
     LeafNode *getNext();
     void setNext(LeafNode *sibling);
     void deleteRecord(int index);

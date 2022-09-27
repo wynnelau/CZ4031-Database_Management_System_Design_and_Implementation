@@ -74,7 +74,8 @@ void Node::deleteKey(int index) {
     keys.erase(keys.begin() + index);
 }
 
-//get smallest key of a node. For a non-leaf parent node, we are going to find the smallest key of its child.
+//get smallest key of a node. For a non-leaf parent node, we are going to find the smallest key by
+// accessing its first leaf node.
 int Node::findSmallestKey(){
     int key;
     Node* copy;
@@ -122,7 +123,7 @@ int Node::addChild(Node* child){
 
     child->parent = this;
 
-    if(key<smallest && !isRoot){
+    if(key<smallest ){ //&& !isRoot
         this->addKey(smallest);
         children.insert(children.begin() + 0, child);
         index = 0;
