@@ -22,22 +22,29 @@ class BPlusTree {
 
 
 public:
+    //Constructor and initialise
     BPlusTree(int blockSize);
     LeafNode* createFirst();
-    void insertToLeaf(LeafNode* leaf, int key, Address* address);
+
+    //Experiment 2, basic stats of Tree
+    void getBPlusTreeStats();
+
+    //insertion
     void insert(int key, Address* address);
+    LeafNode* getLeafNode(int key);
     void splitAndInsertIntoLeaf(LeafNode* old, int key, Address* address);
     void splitParent(Node* parent, Node* child);
-    LeafNode* getLeafNode(int key);
-    
+
+    // experiment 3: get records with a particular key
     vector<Address*> getRecordsWithKey(int key);
-    
-    
-    
+
+    // experiment 4: get records in a range [minKey,maxKey]
+    vector<Address*> getRecordsWithRange(int minKey, int maxKey);
+
+
+    // to visualise the B+ Tree
     void printBPlusTree(int level, int maxLevel,  Node* curNode);
     void printBPlusTree();
-
-
 };
 
 

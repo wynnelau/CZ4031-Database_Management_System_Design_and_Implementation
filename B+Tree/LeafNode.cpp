@@ -19,7 +19,7 @@ vector<Address *> LeafNode::getRecord(int index)
     return records.at(index);
 }
 
-void LeafNode::addRecord(int index, Address *address)
+void LeafNode::addRecordToExistingLeafKey(int index, Address *address)
 {
     records.at(index).push_back(address);
 }
