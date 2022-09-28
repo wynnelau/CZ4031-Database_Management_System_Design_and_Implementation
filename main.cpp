@@ -70,6 +70,8 @@ void experiment4(BPlusTree *index)
 
 void experiment5(BPlusTree* index)
 {
+    cout << "\n=============================================================================" << endl;
+    cout << "Starting Experiment 4" << endl;
 //    index->printBPlusTree();
     vector<Address*> addressesToBeDeleted = index->deleteKey(20);
 //    index->deleteKey(19);
@@ -87,4 +89,5 @@ int main()
     BPlusTree* index = experiment1And2(40);
     experiment3(index);
     experiment4(index);
+    experiment5(index);
 }
