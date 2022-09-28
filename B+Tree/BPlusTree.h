@@ -40,9 +40,10 @@ public:
     vector<Address *> getRecordsWithRange(int minKey, int maxKey);
 
     // Experiment 5: Deletion
-    void deleteKey(int key);
+    vector<Address*> deleteKey(int key);
     void cureLeaf(LeafNode *node); // needed for merging/borrowing from leaf nodes
     void cureParent(Node *node);   // needed to cure parent node after updating leaf nodes
+    int getDeletedCount();
 
     // to visualise the B+ Tree
     void printBPlusTree(int level, int maxLevel, Node *curNode);

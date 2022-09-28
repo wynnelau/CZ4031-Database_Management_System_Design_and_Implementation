@@ -488,11 +488,12 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
 
 // Experiment 5: Deletion
 
-void BPlusTree::deleteKey(int key)
+vector<Address*> BPlusTree::deleteKey(int key)
 {
 
     LeafNode *requiredLeafNode = getLeafNode(key);
     vector<int> keysOfLeafNode = requiredLeafNode->getKeys();
+    vector<Address*> addressesToBeDeleted;
 
     int index = INT_MAX;
     for (int i = 0; i < keysOfLeafNode.size(); i++)
@@ -508,6 +509,7 @@ void BPlusTree::deleteKey(int key)
         cout << "No such key exists in B+ Tree!" << endl;
         return;
     }
+    addressesToBeDeleted = requiredLeafNode->getRecord(index);
     bool nonLeafNodeContainsKey = false;
 
     Node *temp = (Node *)requiredLeafNode->getParent();
@@ -525,8 +527,6 @@ void BPlusTree::deleteKey(int key)
         }
         temp = temp->getParent();
     }
-
-    cout << nonLeafNodeContainsKey;
 
     // Simplest Case
     if (!nonLeafNodeContainsKey && requiredLeafNode->getKeys().size() - 1 >= leafMinKeys)
@@ -549,6 +549,8 @@ void BPlusTree::deleteKey(int key)
         requiredLeafNode->deleteRecord(index);
         cureParent(parentNode);
     }
+
+    return addressesToBeDeleted;
 }
 
 void BPlusTree::cureParent(Node *parentNode)
@@ -745,4 +747,8 @@ void BPlusTree::cureLeaf(LeafNode *leaf)
         leaf->deleteNode();
         deletedCount++;
     }
+}
+
+int BPlusTree::getDeletedCount() {
+    return deletedCount;
 }
