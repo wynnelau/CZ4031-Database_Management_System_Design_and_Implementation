@@ -16,11 +16,11 @@ BPlusTree *experiment1And2(int blockSize)
     // There are no repeated keys in this BPlusTree implementation. There is a vector of addresses each leaf node
     // key points to.
     BPlusTree *index = new BPlusTree(40);
-    //     int arr[] = {1,4,20,7,10,17,21,31,25,19,20,28,42,3,5,13,14,29,20,
-    //                  24,30,20,45,56,52,20,61,49,64,78,79,83,85,94,20,109,75,20,92,101,69,97,99
-    //             ,43,58,62,20,105,108,109};
+         int arr[] = {1,4,20,7,10,17,21,31,25,19,20,28,42,3,5,13,14,29,20,
+                      24,30,20,45,56,52,20,61,49,64,78,79,83,85,94,20,109,75,20,92,101,69,97,99
+                 ,43,58,62,20,105,108,109};
 
-    int arr[] = {1, 25, 31, 20, 21, 4, 17, 19, 7, 10, 5};
+//    int arr[] = {1, 25, 31, 20, 21, 4, 17, 19, 7, 10, 5};
 
     for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
     {
@@ -68,10 +68,14 @@ void experiment4(BPlusTree *index)
     }
 }
 
-void experiment5(BPlusTree)
+void experiment5(BPlusTree* index)
 {
-    // TODO: Implement Delete Functionality for B+ Tree
-    // TODO: Delete movies that have numvotes of 1,000
+//    index->printBPlusTree();
+    vector<Address*> addressesToBeDeleted = index->deleteKey(20);
+//    index->deleteKey(19);
+    index->getBPlusTreeStats();
+    cout<<"Number of nodes deleted: " + to_string(index->getDeletedCount())<<endl;
+    // TODO: DELETE Records that have address of that key from Storage.
 }
 
 // LAST STEP
@@ -79,13 +83,8 @@ void experiment5(BPlusTree)
 
 int main()
 {
-    // Block Size is set to 40. so now n = 3!
-    BPlusTree *index = experiment1And2(40);
-    index->deleteKey(5);
-    index->deleteKey(17);
-    index->deleteKey(7);
-    index->deleteKey(20);
-    cout << "\n\n\n\n DELETING...";
-    index->printBPlusTree();
-    return 0;
+       // Block Size is set to 40. so now n = 3!
+    BPlusTree* index = experiment1And2(40);
+    experiment3(index);
+    experiment4(index);
 }
