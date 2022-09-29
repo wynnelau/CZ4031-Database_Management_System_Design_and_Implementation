@@ -23,11 +23,8 @@ public:
     void deleteChildren();
     Node *getChildBefore(Node *node);
     Node *getChildAfter(Node *node);
-    void addChild(Node *child, int index);
     int findSmallestKey();
-
     bool getIsLeaf();
-
     Node *getParent(Node *root);
 };
 
