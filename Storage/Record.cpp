@@ -37,5 +37,5 @@ bool Record::setIsDeleted(bool del){
 }
 
 void Record::displayRecord(){
-    cout << "tconst :" << *tconst << "averageRating : " << averageRating << "numVotes : " << numVotes << endl;
+    cout << "tconst :" << *tconst << "averageRating : " << averageRating << "numVotes : " << numVotes << "isDeleted : " << isDeleted << endl;
 }

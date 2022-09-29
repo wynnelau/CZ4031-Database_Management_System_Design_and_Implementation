@@ -4,6 +4,10 @@
 
 #include "BPlusTree.h"
 #include "cmath"
+#include <algorithm>
+#include <string>
+
+//using namespace std;
 
 // For sorting Address vector while querying
 bool comparator(Address *a, Address *b)
@@ -541,7 +545,6 @@ vector<Address *> BPlusTree::deleteKey(int key)
         requiredLeafNode->deleteRecord(index);
         cureLeaf(requiredLeafNode);
         cureParent(parentNode);
-        return;
     }
     else
     {

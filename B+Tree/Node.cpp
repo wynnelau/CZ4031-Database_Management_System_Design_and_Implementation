@@ -3,6 +3,7 @@
 //
 
 #include "Node.h"
+#include <algorithm>
 
 Node::Node()
 {
