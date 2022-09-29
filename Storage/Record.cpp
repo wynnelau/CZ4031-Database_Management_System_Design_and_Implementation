@@ -9,6 +9,7 @@
 using namespace std;
 
 Record::Record(char tconst[10], float averageRating, int numVotes){
+    isDeleted = false;
     strcpy(tconst,tconst);
     averageRating = averageRating;
     numVotes = numVotes;
@@ -24,6 +25,15 @@ float Record::getAverageRating(){
 
 int Record::getNumVotes(){
     return numVotes;
+}
+
+bool Record::getIsDeleted(){
+    return isDeleted;
+}
+
+bool Record::setIsDeleted(bool del){
+    isDeleted = del;
+    return true;
 }
 
 void Record::displayRecord(){

@@ -12,13 +12,16 @@ using namespace std;
 
 
 class Block {
-    int blockNumber;
+    int maxRecords;
+    int curRecords;
     vector<Record> records;
 
 public:
-    Block(int blockNumber, int offset);
+    Block(int blockSize);
     void displayBlock();
-
+    bool insertRecord(Record record);
+    bool deleteRecord(int offset);
+    bool getAvailableSpace();
 };
 
 

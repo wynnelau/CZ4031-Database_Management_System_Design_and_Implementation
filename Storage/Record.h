@@ -7,6 +7,7 @@
 
 
 class Record {
+    bool isDeleted;
     char tconst[10];
     float averageRating;
     int numVotes;
@@ -17,6 +18,8 @@ public:
     char getTconst();
     float getAverageRating();
     int getNumVotes();
+    bool getIsDeleted();
+    bool setIsDeleted(bool del);
 };
 
 
