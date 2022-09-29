@@ -16,18 +16,18 @@ BPlusTree *experiment1And2(int blockSize)
     // There are no repeated keys in this BPlusTree implementation. There is a vector of addresses each leaf node
     // key points to.
     BPlusTree *index = new BPlusTree(40);
-         int arr[] = {1,4,20,7,10,17,21,31,25,19,20,28,42,3,5,13,14,29,20,
-                      24,30,20,45,56,52,20,61,49,64,78,79,83,85,94,20,109,75,20,92,101,69,97,99
-                 ,43,58,62,20,105,108,109};
+//         int arr[] = {1,4,20,7,10,17,21,31,25,19,20,28,42,3,5,13,14,29,20,
+//                      24,30,20,45,56,52,20,61,49,64,78,79,83,85,94,20,109,75,20,92,101,69,97,99
+//                 ,43,58,62,20,105,108,109};
 
-//    int arr[] = {1, 25, 31, 20, 21, 4, 17, 19, 7, 10, 5};
+    int arr[] = {1, 25, 31, 20, 21, 4, 17, 19, 7, 10, 5};
 
     for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
     {
         index->insert(arr[i], new Address(i, 1));
     }
     index->getBPlusTreeStats();
-    index->printBPlusTree();
+//    index->printBPlusTree();
 
     return index;
 }
@@ -71,9 +71,9 @@ void experiment4(BPlusTree *index)
 void experiment5(BPlusTree* index)
 {
     cout << "\n=============================================================================" << endl;
-    cout << "Starting Experiment 4" << endl;
+    cout << "Starting Experiment 5" << endl;
 //    index->printBPlusTree();
-    vector<Address*> addressesToBeDeleted = index->deleteKey(20);
+    vector<Address*> addressesToBeDeleted = index->deleteKey(5);
 //    index->deleteKey(19);
     index->getBPlusTreeStats();
     cout<<"Number of nodes deleted: " + to_string(index->getDeletedCount())<<endl;
@@ -85,35 +85,35 @@ void experiment5(BPlusTree* index)
 
 int main()
 {
-       // Block Size is set to 40. so now n = 3!
-//    BPlusTree* index = experiment1And2(40);
-//    experiment3(index);
-//    experiment4(index);
-//    experiment5(index);
+//        Block Size is set to 40. so now n = 3!
+    BPlusTree* index = experiment1And2(40);
+    experiment3(index);
+    experiment4(index);
+    experiment5(index);
 
-    BPlusTree *index = new BPlusTree(40);
-    Address* recordAddr = new Address(1,5);
-        index->insert(1,recordAddr);
-		index->insert(4,recordAddr);
-		index->insert(7,recordAddr);
-		index->insert(10,recordAddr);
-		index->insert(17,recordAddr);
-		index->insert(21,recordAddr);
-		index->insert(31,recordAddr);
-		index->insert(25,recordAddr);
-		index->insert(19,recordAddr);
-		index->insert(20,recordAddr);
-		index->insert(28,recordAddr);
-		index->insert(42,recordAddr);
-		index->insert(3,recordAddr);
-		index->insert(5,recordAddr);
-		index->insert(13,recordAddr);
-		index->insert(14,recordAddr);
-			index->insert(29,recordAddr);
-			index->insert(24,recordAddr);
-			index->insert(30,recordAddr);
-			index->insert(45,recordAddr);
-			index->insert(56,recordAddr);
+//    BPlusTree *index = new BPlusTree(40);
+//    Address* recordAddr = new Address(1,5);
+//        index->insert(1,recordAddr);
+//		index->insert(4,recordAddr);
+//		index->insert(7,recordAddr);
+//		index->insert(10,recordAddr);
+//		index->insert(17,recordAddr);
+//		index->insert(21,recordAddr);
+//		index->insert(31,recordAddr);
+//		index->insert(25,recordAddr);
+//		index->insert(19,recordAddr);
+//		index->insert(20,recordAddr);
+//		index->insert(28,recordAddr);
+//		index->insert(42,recordAddr);
+//		index->insert(3,recordAddr);
+//		index->insert(5,recordAddr);
+//		index->insert(13,recordAddr);
+//		index->insert(14,recordAddr);
+//                index->insert(29,recordAddr);
+//                index->insert(24,recordAddr);
+//                index->insert(30,recordAddr);
+//                index->insert(45,recordAddr);
+//                index->insert(56,recordAddr);
 //			index->insert(52,recordAddr);
 //			index->insert(61,recordAddr);
 //			index->insert(49,recordAddr);
@@ -136,7 +136,7 @@ int main()
 //		index->insert(105,recordAddr);
 //		index->insert(108,recordAddr);
 //		index->insert(110,recordAddr);
-        index->printBPlusTree();
+//        index->printBPlusTree();
 
 
 

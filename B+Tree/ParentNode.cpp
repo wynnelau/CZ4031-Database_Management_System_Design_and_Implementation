@@ -132,7 +132,7 @@ Node* ParentNode::getParent(Node *root) {
         for (int i = cursorKeys.size() - 1; i >= 0; i--)
 
             if (cursorKeys.at(i) <= smallestKeyOfThisNode) {
-                if ((Node *) cursor->getChild(i) == this) {
+                if ((Node *) cursor->getChild(i + 1) == this) {
                     return cursor;
                 }
                 cursor = (ParentNode *) cursor->getChild(i + 1);
