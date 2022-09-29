@@ -11,7 +11,6 @@ class Record {
     char tconst[10];
     float averageRating;
     int numVotes;
-    bool isDeleted;
 
 public:
     Record(char tconst[10], float averageRating, int numVotes);
