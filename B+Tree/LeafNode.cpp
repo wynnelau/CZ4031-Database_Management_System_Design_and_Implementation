@@ -3,10 +3,10 @@
 //
 
 #include "LeafNode.h"
+#include "ParentNode.h"
 
-LeafNode::LeafNode()
-{
-    setIsLeaf(true);
+LeafNode::LeafNode(){
+
 }
 
 vector<vector<Address *>> LeafNode::getRecords()
@@ -62,4 +62,38 @@ void LeafNode::deleteRecord(int index)
 void LeafNode::deleteRecords()
 {
     records.clear();
+}
+
+bool LeafNode::getIsLeaf() {
+    return true;
+}
+
+Node* LeafNode::getParent(Node *root) {
+
+    int  key= findSmallestKey();
+    if (root->getIsLeaf())
+    {
+        return (LeafNode *)root;
+    }
+
+    ParentNode* parentNode = (ParentNode*) root;
+    vector<int> parentKeys;
+
+    while (!parentNode->getChild(0)->getIsLeaf())
+    {
+        parentKeys = parentNode->getKeys();
+        for (int i = parentKeys.size() - 1; i >= 0; i--)
+        {
+
+            if (parentKeys.at(i) <= key)
+            {
+                parentNode = (ParentNode*) parentNode->getChild(i + 1);
+                break;
+            }
+            else if (i == 0)
+                parentNode = (ParentNode*) parentNode->getChild(0);
+        }
+    }
+
+    return parentNode;
 }

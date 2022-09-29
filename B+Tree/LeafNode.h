@@ -28,6 +28,10 @@ public:
     void setNext(LeafNode *sibling);
     void deleteRecord(int index);
     void deleteRecords();
+
+    bool getIsLeaf();
+
+    Node * getParent(Node *root);
 };
 
 #endif
