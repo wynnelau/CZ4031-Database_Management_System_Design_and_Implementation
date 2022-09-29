@@ -72,10 +72,10 @@ void experiment5(BPlusTree* index)
 {
     cout << "\n=============================================================================" << endl;
     cout << "Starting Experiment 5" << endl;
-//    index->printBPlusTree();
+    cout<< "Getting addresses for key 1000 "<<endl;
     vector<Address*> addressesToBeDeleted = index->deleteKey(5);
-//    index->deleteKey(19);
     index->getBPlusTreeStats();
+
     cout<<"Number of nodes deleted: " + to_string(index->getDeletedCount())<<endl;
     // TODO: DELETE Records that have address of that key from Storage.
 }

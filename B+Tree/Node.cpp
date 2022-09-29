@@ -3,7 +3,7 @@
 //
 
 #include "Node.h"
-#include "ParentNode.h"
+#include "InternalNode.h"
 
 Node::Node() {}
 
@@ -61,7 +61,15 @@ int Node::findSmallestKey() {
 
 void Node::deleteNode(Node *root) {
 
-    ParentNode *parent = (ParentNode *) getParent(root);
+    if(this != root){
+
+        InternalNode *parent = (InternalNode *) getParent(root);
+        if(parent){
+            parent->deleteChild(this);
+        }
+    }
+
+
     delete this;
 }
 

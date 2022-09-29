@@ -2,19 +2,19 @@
 // Created by Akshit Karanam on 29/9/22.
 //
 
-#include "ParentNode.h"
+#include "InternalNode.h"
 
 // children functions
-vector<Node *> ParentNode::getChildren() {
+vector<Node *> InternalNode::getChildren() {
     return children;
 }
 
-Node *ParentNode::getChild(int index) {
+Node *InternalNode::getChild(int index) {
     return children.at(index);
 }
 
 // add child to the node, and rearrange the pointers if needed.
-int ParentNode::addChild(Node *child) {
+int InternalNode::addChild(Node *child) {
     if (children.empty()) {
         children.push_back(child);
         return 0;
@@ -37,7 +37,7 @@ int ParentNode::addChild(Node *child) {
 
 
 
-void ParentNode::deleteChild(Node *child) {
+void InternalNode::deleteChild(Node *child) {
     children.erase(std::remove(children.begin(), children.end(), child), children.end());
     deleteAllKeys();
 
@@ -45,7 +45,7 @@ void ParentNode::deleteChild(Node *child) {
     for (int i = 0; i < childrenSize; i++) {
         if (i != 0) {
 
-            ParentNode *node = (ParentNode *) (children.at(i));
+            InternalNode *node = (InternalNode *) (children.at(i));
             addKey(node->findSmallestKey());
 
         }
@@ -54,11 +54,11 @@ void ParentNode::deleteChild(Node *child) {
     }
 }
 
-void ParentNode::deleteChildren() {
+void InternalNode::deleteChildren() {
     children.clear();
 }
 
-Node *ParentNode::getChildBefore(Node *node) {
+Node *InternalNode::getChildBefore(Node *node) {
     auto it = find(children.begin(), children.end(), node);
 
     // If element was found
@@ -71,7 +71,7 @@ Node *ParentNode::getChildBefore(Node *node) {
     return nullptr;
 }
 
-Node *ParentNode::getChildAfter(Node *node) {
+Node *InternalNode::getChildAfter(Node *node) {
     auto it = find(children.begin(), children.end(), node);
 
     // If element was found
@@ -84,25 +84,25 @@ Node *ParentNode::getChildAfter(Node *node) {
     return nullptr;
 }
 
-int ParentNode::findSmallestKey() {
+int InternalNode::findSmallestKey() {
 
-    ParentNode *copy;
+    InternalNode *copy;
     copy = this;
 
     while (!copy->getChild(0)->getIsLeaf()) {
-        copy = (ParentNode *) copy->getChild(0);
+        copy = (InternalNode *) copy->getChild(0);
     }
 
     return copy->getChild(0)->getKey(0);
 }
 
-bool ParentNode::getIsLeaf() {
+bool InternalNode::getIsLeaf() {
     return false;
 }
 
-Node *ParentNode::getParent(Node *root) {
+Node *InternalNode::getParent(Node *root) {
 
-    ParentNode *cursor = (ParentNode *) root;
+    InternalNode *cursor = (InternalNode *) root;
     vector<int> cursorKeys;
     int smallestKeyOfThisNode = this->findSmallestKey();
 
@@ -119,13 +119,13 @@ Node *ParentNode::getParent(Node *root) {
                 if ((Node *) cursor->getChild(i + 1) == this) {
                     return cursor;
                 }
-                cursor = (ParentNode *) cursor->getChild(i + 1);
+                cursor = (InternalNode *) cursor->getChild(i + 1);
                 break;
             } else if (i == 0) {
                 if ((Node *) cursor->getChild(0) == this) {
                     return cursor;
                 }
-                cursor = (ParentNode *) cursor->getChild(0);
+                cursor = (InternalNode *) cursor->getChild(0);
             }
 
     }

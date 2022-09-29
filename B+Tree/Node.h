@@ -8,7 +8,7 @@ using namespace std;
 
 #include <iostream>
 #include <vector>
-//#include <ParentNode.h>
+//#include <InternalNode.h>
 
 class Node
 {

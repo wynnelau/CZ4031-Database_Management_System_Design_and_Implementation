@@ -3,7 +3,7 @@
 //
 
 #include "LeafNode.h"
-#include "ParentNode.h"
+#include "InternalNode.h"
 
 LeafNode::LeafNode(){
 
@@ -76,7 +76,7 @@ Node* LeafNode::getParent(Node *root) {
         return (LeafNode *)root;
     }
 
-    ParentNode* parentNode = (ParentNode*) root;
+    InternalNode* parentNode = (InternalNode*) root;
     vector<int> parentKeys;
 
     while (!parentNode->getChild(0)->getIsLeaf())
@@ -87,11 +87,11 @@ Node* LeafNode::getParent(Node *root) {
 
             if (parentKeys.at(i) <= key)
             {
-                parentNode = (ParentNode*) parentNode->getChild(i + 1);
+                parentNode = (InternalNode*) parentNode->getChild(i + 1);
                 break;
             }
             else if (i == 0)
-                parentNode = (ParentNode*) parentNode->getChild(0);
+                parentNode = (InternalNode*) parentNode->getChild(0);
         }
     }
 

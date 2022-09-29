@@ -2,12 +2,12 @@
 // Created by Akshit Karanam on 29/9/22.
 //
 
-#ifndef CZ4031_PROJECT1_PARENTNODE_H
-#define CZ4031_PROJECT1_PARENTNODE_H
+#ifndef CZ4031_PROJECT1_INTERNALNODE_H
+#define CZ4031_PROJECT1_INTERNALNODE_H
 
 #include "Node.h"
 
-class ParentNode : public Node {
+class InternalNode : public Node {
 private:
     vector<Node *> children;
 
@@ -29,4 +29,4 @@ public:
 };
 
 
-#endif //CZ4031_PROJECT1_PARENTNODE_H
+#endif //CZ4031_PROJECT1_INTERNALNODE_H

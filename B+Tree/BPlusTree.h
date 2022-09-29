@@ -6,7 +6,7 @@
 #define BPLUSTREE_H
 
 #include "LeafNode.h"
-#include "ParentNode.h"
+#include "InternalNode.h"
 
 class BPlusTree
 {
@@ -31,7 +31,7 @@ public:
     void insert(int key, Address *address);
     LeafNode *getLeafNode(int key);
     void splitAndInsertIntoLeaf(LeafNode *old, int key, Address *address);
-    void splitParent(ParentNode *parent, ParentNode *child);
+    void splitParent(InternalNode *parent, InternalNode *child);
 
     // Experiment 3: get records with a particular key
     vector<Address *> getRecordsWithKey(int key);
@@ -42,7 +42,7 @@ public:
     // Experiment 5: Deletion
     vector<Address*> deleteKey(int key);
     void cureLeaf(LeafNode *node); // needed for merging/borrowing from leaf nodes
-    void cureParent(ParentNode *parentNode);   // needed to cure parent node after updating leaf nodes
+    void cureParent(InternalNode *parentNode);   // needed to cure parent node after updating leaf nodes
     int getDeletedCount();
 
     // to visualise the B+ Tree
