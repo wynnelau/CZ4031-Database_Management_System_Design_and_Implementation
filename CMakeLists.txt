@@ -13,4 +13,12 @@ add_executable(
     Address.h 
     B+Tree/BPlusTree.cpp 
     B+Tree/BPlusTree.h
+    Storage/Address.cpp
+    Storage/Address.h
+    Storage/Record.cpp
+    Storage/Record.h
+    Storage/Block.cpp
+    Storage/Block.h
+    Storage/Storage.cpp
+    Storage/Storage.h
     )
