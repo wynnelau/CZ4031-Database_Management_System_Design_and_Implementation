@@ -5,8 +5,8 @@
 #ifndef ADDRESS_H
 #define ADDRESS_H
 
-
-class Address {
+class Address
+{
     int blockNumber;
     int offset;
 
@@ -16,5 +16,4 @@ public:
     int getOffSet();
 };
 
-
-#endif 
+#endif
