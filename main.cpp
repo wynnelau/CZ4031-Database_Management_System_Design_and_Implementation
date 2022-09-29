@@ -86,8 +86,58 @@ void experiment5(BPlusTree* index)
 int main()
 {
        // Block Size is set to 40. so now n = 3!
-    BPlusTree* index = experiment1And2(40);
-    experiment3(index);
-    experiment4(index);
-    experiment5(index);
+//    BPlusTree* index = experiment1And2(40);
+//    experiment3(index);
+//    experiment4(index);
+//    experiment5(index);
+
+    BPlusTree *index = new BPlusTree(40);
+    Address* recordAddr = new Address(1,5);
+        index->insert(1,recordAddr);
+		index->insert(4,recordAddr);
+		index->insert(7,recordAddr);
+		index->insert(10,recordAddr);
+		index->insert(17,recordAddr);
+		index->insert(21,recordAddr);
+		index->insert(31,recordAddr);
+		index->insert(25,recordAddr);
+		index->insert(19,recordAddr);
+		index->insert(20,recordAddr);
+		index->insert(28,recordAddr);
+		index->insert(42,recordAddr);
+		index->insert(3,recordAddr);
+		index->insert(5,recordAddr);
+		index->insert(13,recordAddr);
+		index->insert(14,recordAddr);
+			index->insert(29,recordAddr);
+			index->insert(24,recordAddr);
+			index->insert(30,recordAddr);
+			index->insert(45,recordAddr);
+			index->insert(56,recordAddr);
+//			index->insert(52,recordAddr);
+//			index->insert(61,recordAddr);
+//			index->insert(49,recordAddr);
+//			index->insert(64,recordAddr);
+//			index->insert(78,recordAddr);
+//			index->insert(79,recordAddr);
+//			index->insert(83,recordAddr);
+//		index->insert(85,recordAddr);
+//		index->insert(94,recordAddr);
+//		index->insert(109,recordAddr);
+//		index->insert(75,recordAddr);
+//		index->insert(92,recordAddr);
+//		index->insert(101,recordAddr);
+//		index->insert(69,recordAddr);
+//		index->insert(97,recordAddr);
+//		index->insert(99,recordAddr);
+//		index->insert(43,recordAddr);
+//		index->insert(58,recordAddr);
+//		index->insert(62,recordAddr);
+//		index->insert(105,recordAddr);
+//		index->insert(108,recordAddr);
+//		index->insert(110,recordAddr);
+        index->printBPlusTree();
+
+
+
 }
