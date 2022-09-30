@@ -53,19 +53,28 @@ void experiment1And2(int blockSize) {
     cout<<"Number of blocks used : " <<storage->getNumberOfBlocksUsed()<<endl;
     cout<<"Size of the database (in MB) : " <<storage->getSizeOfDatabase(blockSize)<<endl;
     indexTree->getBPlusTreeStats();
+
+
 }
 
 void experiment3(BPlusTree *index) {
     cout << "=============================================================================" << endl;
     cout << "\nStarting Experiment 3" << endl;
     vector<Address *> addresses = index->getRecordsWithKey(500);
-    // TODO: Get the number and contents of the data blocks (show the first 5).
     float numRecords = addresses.size();
     float avgRating = 0;
+    int i = 1;
+    cout<<"\nData Blocks accessed:"<<endl;
     for(Address* address: addresses){
         avgRating += storage->getRecord(*address)->averageRating;
+        if(i<=5){
+            storage->printBlock(address->getBlockNumber());
+            i++;
+        }
+
     }
     avgRating /= numRecords;
+    cout<<"Number of Data Blocks accessed: "<<addresses.size()<<endl;
     cout<<"Average Rating : " <<avgRating<<endl;
 
 }
@@ -74,14 +83,19 @@ void experiment4(BPlusTree *index) {
     cout << "\n=============================================================================" << endl;
     cout << "Starting Experiment 4" << endl;
     vector<Address *> addresses = index->getRecordsWithRange(30000, 40000);
-    // TODO: Get the number and contents of the data blocks (show the first 5).
     float numRecords = addresses.size();
     float avgRating = 0;
+    int i = 1;
+    cout<<"\nData Blocks accessed:"<<endl;
     for(Address* address: addresses){
         avgRating += storage->getRecord(*address)->averageRating;
+        if(i<=5){
+            storage->printBlock(address->getBlockNumber());
+            i++;
+        }
     }
     avgRating /= numRecords;
-    cout<<"Number of records: " <<addresses.size()<<endl;
+    cout<<"Number of Data Blocks accessed: "<<addresses.size()<<endl;
     cout<<"Average Rating : " <<avgRating<<endl;
 }
 
@@ -91,7 +105,10 @@ void experiment5(BPlusTree *index) {
     vector<Address *> addressesToBeDeleted = index->deleteKey(1000);
     index->getBPlusTreeStats();
     cout << "Number of nodes deleted: " + to_string(index->getDeletedCount()) << endl;
-    // TODO: DELETE Records that have address of that key from Storage.
+
+    for(Address* address: addressesToBeDeleted){
+        storage->deleteRecord(*address);
+    }
 }
 
 // LAST STEP
@@ -99,27 +116,36 @@ void experiment5(BPlusTree *index) {
 
 int main()
 {
-    int blksize, size;
-    cout << "=============================================================================" << endl;
-    cout << "Choose block size (1/2) : " << endl;
-    cout << "1. 200B" << endl;
-    cout << "2. 500B" << endl;
-    cin >> blksize;
-    switch (blksize) {
-        case 1:
-            cout << "Block size set to 200B" << endl;
-            size = 200;
-            break;
-        case 2:
-            cout << "Block size set to 500B" << endl;
-            size = 500;
-            break;
-        default:
-            cout << "Error" << endl;
-            return 0;
+    while(true){
+        int blksize, size;
+        cout << "=============================================================================" << endl;
+        cout << "Choose block size (1/2) : " << endl;
+        cout << "1. 200B" << endl;
+        cout << "2. 500B" << endl;
+        cout << "3. Quit"<<endl;
+        cin >> blksize;
+        switch (blksize) {
+            case 1:
+                cout << "Block size set to 200B" << endl;
+                size = 200;
+                break;
+            case 2:
+                cout << "Block size set to 500B" << endl;
+                size = 500;
+                break;
+            case 3:
+                cout<<"Exiting..."<<endl;
+                return 0;
+
+            default:
+                cout << "Error" << endl;
+                return 0;
+        }
+        experiment1And2(size);
+        experiment3(indexTree);
+        experiment4(indexTree);
+        experiment5(indexTree);
+
     }
-    experiment1And2(size);
-    experiment3(indexTree);
-    experiment4(indexTree);
-    experiment5(indexTree);
+
 }

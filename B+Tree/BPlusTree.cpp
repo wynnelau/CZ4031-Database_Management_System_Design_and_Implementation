@@ -338,8 +338,8 @@ void BPlusTree::getBPlusTreeStats()
 // FOR EXPERIMENT 3
 vector<Address *> BPlusTree::getRecordsWithKey(int key)
 {
-    cout << "Getting addressNodes with index key: " + to_string(key) << endl;
-    cout << "Index nodes visited: " << endl;
+    // cout << "Getting addressNodes with index key: " + to_string(key) << endl;
+    cout << "Index Nodes accessed: " << endl;
 
     int nodeAccess = 1; // starting from root
     vector<Address*> requiredAddresses;
@@ -390,7 +390,7 @@ vector<Address *> BPlusTree::getRecordsWithKey(int key)
         }
     }
 
-    cout << "Total number of index nodes visited: " + to_string(nodeAccess) << endl;
+    cout << "Total number of Index Nodes accessed: " + to_string(nodeAccess) << endl;
     std::sort(requiredAddresses.begin(), requiredAddresses.end(), comparator);
     return requiredAddresses;
 }
@@ -469,7 +469,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
         leafNode = leafNode->getNext();
         nodeAccess++;
     }
-    cout << "Total number of index nodes visited: " + to_string(nodeAccess) << endl;
+    cout << "Total number of Index Nodes accessed: " + to_string(nodeAccess) << endl;
     std::sort(requiredAddresses.begin(), requiredAddresses.end(), comparator);
     return requiredAddresses;
 }

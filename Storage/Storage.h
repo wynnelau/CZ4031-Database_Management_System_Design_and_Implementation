@@ -34,6 +34,8 @@ public:
     Record *getRecord(Address address);
     int getNumberOfBlocksUsed();
     float getSizeOfDatabase(int blockSize);
+
+    Record *printBlock(int blockNum);
 };
 
 

@@ -28,6 +28,8 @@ public:
     Record *getRecord(int offset);
 
     int getNumber();
+
+    void printBlock();
 };
 
 

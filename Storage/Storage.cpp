@@ -61,6 +61,12 @@ Record *Storage::getRecord(Address address) {
     return blocks.at(address.getBlockNumber()).getRecord(address.getOffSet());
 }
 
+Record* Storage::printBlock(int blockNum){
+    cout<<"Block Number: "<<(blockNum +1)<<endl;
+    blocks.at(blockNum).displayBlock();
+    cout<<endl;
+}
+
 
 void Storage::getAllRecords() {
     for (int i = 0; i < blocks.size(); i++) {

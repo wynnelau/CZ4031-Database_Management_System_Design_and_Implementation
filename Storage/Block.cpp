@@ -21,10 +21,11 @@ int Block::getNumber() {
     return number;
 }
 
+
 void Block::displayBlock() {
     for (int i = 0; i <= records.size() - 1; i++) {
         if (!records.at(i).getIsDeleted()) {
-            cout << "Record " << i;
+            cout << "Record " << i +1;
             records.at(i).displayRecord();
         }
     }
