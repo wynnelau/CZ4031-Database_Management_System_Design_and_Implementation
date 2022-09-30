@@ -17,12 +17,11 @@ static BPlusTree *indexTree;
 
 
 
-void *experiment1And2(int blockSize) {
+void experiment1And2(int blockSize) {
     cout << "=============================================================================" << endl;
     cout << "Starting Experiment 1 and 2" << endl;
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
     // Each record is 20 Bytes
-
 
     storage = new Storage(150000000, 100);
     indexTree = new BPlusTree(100);
@@ -34,9 +33,8 @@ void *experiment1And2(int blockSize) {
     vector<Address *> addressesInserted;
 
 
-    int i = 0; // for testing purposes
 
-    while (getline (filename, line) && i < 1) {
+    while (getline (filename, line)) {
 
         Record record;
         stringstream linestream(line);
@@ -49,6 +47,8 @@ void *experiment1And2(int blockSize) {
         record.averageRating = std::stof(row);
         getline(linestream, row, '\t');
         record.numVotes = std::stoi(row);
+        record.isDeleted = false;
+        
 
         Address* addressNeeded = storage->insertRecord(record);
         indexTree->insert(record.numVotes, addressNeeded);

@@ -5,6 +5,7 @@
 #include "Storage.h"
 #include "Block.h"
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
