@@ -115,12 +115,31 @@ void experiment5(BPlusTree* index)
 }
 
 // LAST STEP
-// TODO: Create a basic interface to choose from either block size of 100 and block size of 500
+// TODO: Create a basic interface to choose from either block size of 200 and block size of 500
 
 int main()
 {
+    int blksize, size;
+    cout << "=============================================================================" << endl;
+    cout << "Choose block size (1/2) : " << endl;
+    cout << "1. 200B" << endl;
+    cout << "2. 500B" << endl;
+    cin >> blksize;
+    switch (blksize) {
+        case 1:
+            cout << "Block size set to 200B" << endl;
+            size = 200;
+            break;
+        case 2:
+            cout << "Block size set to 500B" << endl;
+            size = 500;
+            break;
+        default:
+            cout << "Error" << endl;
+            return 0;
+    }
        // Block Size is set to 40. so now n = 3!
-    BPlusTree* index = experiment1And2(40);
+    BPlusTree* index = experiment1And2(40); //put size in here
     experiment3(index);
     experiment4(index);
     experiment5(index);
