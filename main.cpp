@@ -8,6 +8,8 @@
 using namespace std;
 
 #include "B+Tree/BPlusTree.h"
+#include "Storage/Record.h"
+#include "Storage/Block.h"
 
 BPlusTree *experiment1And2(int blockSize)
 {
@@ -15,13 +17,15 @@ BPlusTree *experiment1And2(int blockSize)
     cout << "Starting Experiment 1 and 2" << endl;
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
     // TODO: Design the storage
+    // Each record is 20 Bytes
+
     // TODO: Store the data into the disk
     string line;
     ifstream filename("../data/data.tsv");
     filename.ignore(10000,'\n');
 
     int i = 0; // for testing purposes
-    while (getline (filename, line) && i < 3) {
+    while (getline (filename, line) && i < 1) {
         cout << line << endl;
 
         stringstream linestream(line);
@@ -39,6 +43,15 @@ BPlusTree *experiment1And2(int blockSize)
         getline(linestream, row, '\t');
         col3 = std::stoi(row); //col3 to be placed into record
         cout << col3 << endl;
+        Record record1(col1, col2, col3);
+
+        // TODO there something wrong with getTconst() or maybe im not doing it right
+        char str[10], test[10];
+        *str = record1.getTconst();
+        strcpy(test,str);
+
+        cout << test << endl;
+        record1.displayRecord();
 
         i++;
     }
