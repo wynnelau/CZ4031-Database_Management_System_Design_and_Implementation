@@ -3,6 +3,8 @@
 #include <sstream>
 #include <cstring>
 #include <string>
+#include <algorithm>
+
 using namespace std;
 
 #include "B+Tree/BPlusTree.h"
