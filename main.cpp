@@ -1,10 +1,4 @@
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <cstring>
-#include <string>
-using namespace std;
-
 #include "B+Tree/BPlusTree.h"
 
 BPlusTree *experiment1And2(int blockSize)
@@ -14,32 +8,6 @@ BPlusTree *experiment1And2(int blockSize)
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
     // TODO: Design the storage
     // TODO: Store the data into the disk
-    string line;
-    ifstream filename("../data/data.tsv");
-    filename.ignore(10000,'\n');
-
-    int i = 0; // for testing purposes
-    while (getline (filename, line) && i < 3) {
-        cout << line << endl;
-
-        stringstream linestream(line);
-        string row;
-        char col1[10];
-        float col2;
-        int col3;
-
-        getline(linestream, row, '\t');
-        strcpy(col1,row.c_str());  //col1 to be placed into record
-        cout << col1 << endl;
-        getline(linestream, row, '\t');
-        col2 = std::stof(row); //col2 to be placed into record
-        cout << col2 << endl;
-        getline(linestream, row, '\t');
-        col3 = std::stoi(row); //col3 to be placed into record
-        cout << col3 << endl;
-
-        i++;
-    }
     // TODO: Get the number of blocks used
     // TODO: Get the size of the database (in MB)
     // TODO: While reading the data file, can also create the index on "numVotes"
