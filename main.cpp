@@ -21,10 +21,7 @@ void *experiment1And2(int blockSize) {
     cout << "=============================================================================" << endl;
     cout << "Starting Experiment 1 and 2" << endl;
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
-    // TODO: Design the storage
     // Each record is 20 Bytes
-
-    // TODO: Store the data into the disk
 
 
     storage = new Storage(150000000, 100);
@@ -60,7 +57,6 @@ void *experiment1And2(int blockSize) {
 
     // TODO: Get the number of blocks used
     // TODO: Get the size of the database (in MB)
-    // TODO: While reading the data file, can also create the index on "numVotes"
     indexTree->getBPlusTreeStats();
 }
 
@@ -90,6 +86,7 @@ void experiment4(BPlusTree *index) {
         avgRating += storage->getRecord(*address)->averageRating;
     }
     avgRating /= numRecords;
+    cout<<"Number of records: " <<addresses.size()<<endl;
     cout<<"Average Rating : " <<avgRating<<endl;
 }
 
