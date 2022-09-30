@@ -27,10 +27,7 @@ BPlusTree::BPlusTree(int blockSize)
 
 LeafNode *BPlusTree::createFirst()
 {
-    //    cout<<"in constructor of b+tree";
     LeafNode *newRoot = new LeafNode();
-    //    cout<<newRoot->getIsLeaf();
-    newRoot->setIsRoot(true);
     height = 1;
     nodeCount = 1;
     return newRoot;
@@ -47,7 +44,7 @@ LeafNode *BPlusTree::getLeafNode(int key)
         return (LeafNode *)root;
     }
 
-    Node *parentNode = root;
+    InternalNode* parentNode =  (InternalNode*) root;
     vector<int> parentKeys;
 
     // Gets the relevant parent node of that required leaf node.
@@ -60,11 +57,11 @@ LeafNode *BPlusTree::getLeafNode(int key)
 
             if (parentKeys.at(i) <= key)
             {
-                parentNode = parentNode->getChild(i + 1);
+                parentNode = (InternalNode*) parentNode->getChild(i + 1);
                 break;
             }
             else if (i == 0)
-                parentNode = parentNode->getChild(0);
+                parentNode = (InternalNode*) parentNode->getChild(0);
         }
     }
 
@@ -101,12 +98,12 @@ void BPlusTree::insert(int key, Address *address)
         }
     }
 
-    vector<Address *> addressListToAdd;
-    addressListToAdd.push_back(address);
+    AddressNode* addressNode = new AddressNode();
+    addressNode->addAddress(address);
 
     if (relevantLeafNode->getKeys().size() < maxKeys)
     {
-        relevantLeafNode->addRecordAndKey(key, addressListToAdd);
+        relevantLeafNode->addRecordAndKey(key, addressNode);
     }
     else
     {
@@ -118,8 +115,8 @@ void BPlusTree::splitAndInsertIntoLeaf(LeafNode *first, int keyToBeInserted, Add
 {
 
     vector<int> keys;
-    vector<vector<Address *>> addresses;
-    vector<Address *> addressListToBeInserted;
+    vector<AddressNode*> addressNodes;
+    AddressNode* addressNodeToBeInserted = new AddressNode();
     LeafNode *second = new LeafNode();
     int i;
 
@@ -127,30 +124,30 @@ void BPlusTree::splitAndInsertIntoLeaf(LeafNode *first, int keyToBeInserted, Add
     for (i = 0; i < maxKeys; i++)
     {
         keys.push_back(first->getKey(i));
-        addresses.push_back(first->getRecord(i));
+        addressNodes.push_back(first->getAddressNode(i));
     }
 
     // sort in numerical order
     keys.push_back(keyToBeInserted);
-    addressListToBeInserted.push_back(addressToBeInserted);
-    addresses.push_back(addressListToBeInserted);
+    addressNodeToBeInserted->addAddress(addressToBeInserted);
+    addressNodes.push_back(addressNodeToBeInserted);
     for (i = keys.size() - 2; i >= 0; i--)
     {
         if (keys.at(i) <= keyToBeInserted)
         {
             i++;
             keys.at(i) = keyToBeInserted;
-            addresses.at(i) = addressListToBeInserted;
+            addressNodes.at(i) = addressNodeToBeInserted;
             break;
         }
 
         keys.at(i + 1) = keys.at(i);
-        addresses.at(i + 1) = addresses.at(i);
+        addressNodes.at(i + 1) = addressNodes.at(i);
 
         if (i == 0)
         {
             keys.at(i) = keyToBeInserted;
-            addresses.at(i) = addressListToBeInserted;
+            addressNodes.at(i) = addressNodeToBeInserted;
             break;
         }
     }
@@ -162,48 +159,50 @@ void BPlusTree::splitAndInsertIntoLeaf(LeafNode *first, int keyToBeInserted, Add
     // adding (minLeafKeys) number of keys into the first node
     for (i = 0; i < leafMinKeys; i++)
     {
-        first->addRecordAndKey(keys.at(i), addresses.at(i));
+        first->addRecordAndKey(keys.at(i), addressNodes.at(i));
     }
 
     // adding the remaining number of keys into the second node
     for (i = leafMinKeys; i < maxKeys + 1; i++)
     {
-        second->addRecordAndKey(keys.at(i), addresses.at(i));
+        second->addRecordAndKey(keys.at(i), addressNodes.at(i));
     }
 
     second->setNext(first->getNext());
     first->setNext(second);
 
     // if the node that is being split is a root node
-    if (first->getIsRoot())
+    if (first == root)
     {
-        Node *newRootNode = new Node();
-        first->setIsRoot(false);
-        newRootNode->setIsRoot(true);
+        InternalNode *newRootNode = new InternalNode();
         newRootNode->addChild(first);
         newRootNode->addChild(second);
         root = newRootNode;
         height++;
     }
-    else if (first->getParent()->getKeys().size() < maxKeys)
+    else if (first->getParent(root)->getKeys().size() < maxKeys)
     {
-        first->getParent()->addChild(second);
+        InternalNode* parent = (InternalNode*) first->getParent(root);
+        parent->addChild(second);
     }
     else
     {
-        splitParent(first->getParent(), second);
+        splitParent((InternalNode *)(first->getParent(root)), (InternalNode *) second);
     }
     nodeCount++;
 }
 
 // split parent until a parent is found that is not needed to be split
-void BPlusTree::splitParent(Node *parent1, Node *child)
+void BPlusTree::splitParent(InternalNode *parent1, InternalNode *child)
 {
+//    if(parent1->getIsLeaf()){
+//        return;
+//    }
 
     vector<Node *> children;
     vector<int> keys;
     int childSmallestKey = child->findSmallestKey();
-    Node *parent2 = new Node();
+    InternalNode *parent2 = new InternalNode();
 
     // getting the minimum key from each child. So, that we know we can arrange the children nodes in
     // ascending order.
@@ -254,24 +253,23 @@ void BPlusTree::splitParent(Node *parent1, Node *child)
     // Set parent for these new nodes
 
     // if original parent node is a root node
-    if (parent1->getIsRoot())
+    if (parent1== root)
     {
-        Node *newParentNode = new Node();
-        parent1->setIsRoot(false);
-        newParentNode->setIsRoot(true);
+        InternalNode *newParentNode = new InternalNode();
         newParentNode->addChild(parent1);
         newParentNode->addChild(parent2);
         root = newParentNode;
         height++;
     }
-    else if (parent1->getParent()->getKeys().size() < maxKeys)
+    else if (parent1->getParent(root)->getKeys().size() < maxKeys)
     {
-        parent1->getParent()->addChild(parent2);
+        InternalNode* newParent = (InternalNode*) parent1->getParent(root);
+        newParent->addChild(parent2);
     }
     else
     {
         // if needed to split again, recursively split again!
-        splitParent(parent1->getParent(), parent2);
+        splitParent((InternalNode*) parent1->getParent(root), parent2);
     }
     nodeCount++;
 }
@@ -305,7 +303,9 @@ void BPlusTree::printBPlusTree(int level, int maxLevel, Node *curNode)
     {
         return;
     }
-    for (Node *child : curNode->getChildren())
+
+    InternalNode* curParentNode= (InternalNode*) curNode;
+    for (Node *child : curParentNode->getChildren())
     {
         printBPlusTree(level + 1, maxLevel, child);
     }
@@ -327,9 +327,10 @@ void BPlusTree::getBPlusTreeStats()
     cout << "]" << endl;
     cout << "Content of first child node: ";
     cout << "[";
-    for (int i = 0; i < root->getChild(0)->getKeys().size(); i++)
+    InternalNode* parentRoot = (InternalNode*) root;
+    for (int i = 0; i < parentRoot->getChild(0)->getKeys().size(); i++)
     {
-        cout << to_string(root->getChild(0)->getKey(i)) + ",";
+        cout << to_string(parentRoot->getChild(0)->getKey(i)) + ",";
     }
     cout << "]" << endl;
 }
@@ -337,63 +338,55 @@ void BPlusTree::getBPlusTreeStats()
 // FOR EXPERIMENT 3
 vector<Address *> BPlusTree::getRecordsWithKey(int key)
 {
-    cout << "Getting records with index key: " + to_string(key) << endl;
+    cout << "Getting addressNodes with index key: " + to_string(key) << endl;
     cout << "Index nodes visited: " << endl;
 
     int nodeAccess = 1; // starting from root
-    vector<Address *> requiredAddresses;
-    Node *curNode = root;
-    Node *parentNode;
+    vector<Address*> requiredAddresses;
 
-    while (!curNode->getIsLeaf())
-    {
+    InternalNode* cursor = (InternalNode *) root;
+    vector<int> cursorKeys;
+
+    while (!cursor->getIsLeaf()) {
 
         if (nodeAccess <= 5)
         {
             cout << to_string(nodeAccess) + ": ";
             cout << "[";
-            for (int i = 0; i < curNode->getKeys().size(); i++)
+            for (int i = 0; i < cursor->getKeys().size(); i++)
             {
-                cout << to_string(curNode->getKey(i)) + ",";
+                cout << to_string(cursor->getKey(i)) + ",";
             }
             cout << "]" << endl;
         }
+        cursorKeys = cursor->getKeys();
+        for (int i = cursorKeys.size() - 1; i >= 0; i--)
 
-        parentNode = curNode;
-        for (int i = 0; i < parentNode->getKeys().size(); i++)
-        {
-
-            if (key <= parentNode->getKey(i))
-            {
-                curNode = parentNode->getChild(i);
-                nodeAccess++;
+            if (cursorKeys.at(i) <= key) {
+                cursor = (InternalNode *) cursor->getChild(i + 1);
                 break;
+            } else if (i == 0) {
+                cursor = (InternalNode *) cursor->getChild(0);
             }
-
-            if (i == parentNode->getKeys().size() - 1)
-            {
-                curNode = parentNode->getChild(i + 1);
-                nodeAccess++;
-                break;
-            }
-        }
+        nodeAccess++;
     }
+
 
     cout << to_string(nodeAccess) + ": ";
     cout << "[";
-    for (int i = 0; i < curNode->getKeys().size(); i++)
+    for (int i = 0; i < cursor->getKeys().size(); i++)
     {
-        cout << to_string(curNode->getKey(i)) + ",";
+        cout << to_string(cursor->getKey(i)) + ",";
     }
     cout << "]" << endl;
 
-    LeafNode *leaf = (LeafNode *)curNode;
+    LeafNode *leaf = (LeafNode *)cursor;
     vector<int> keys = leaf->getKeys();
     for (int i = 0; i < keys.size(); i++)
     {
         if (keys.at(i) == key)
         {
-            requiredAddresses = leaf->getRecord(i);
+            requiredAddresses = leaf->getAddressNode(i)->getAddresses();
         }
     }
 
@@ -407,56 +400,48 @@ vector<Address *> BPlusTree::getRecordsWithKey(int key)
 vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
 {
 
-    cout << "Getting records index key in the range: [" + to_string(minKey) + "," + to_string(maxKey) + "]"
+    cout << "Getting addressNodes index key in the range: [" + to_string(minKey) + "," + to_string(maxKey) + "]"
          << endl;
     cout << "Index nodes visited: " << endl;
 
     int nodeAccess = 0;
     vector<Address *> requiredAddresses;
-    Node *curNode = root;
-    Node *parentNode;
 
-    while (!curNode->getIsLeaf())
-    {
 
-        if (nodeAccess <= 5)
+    InternalNode* cursor = (InternalNode *) root;
+    vector<int> cursorKeys;
+
+    while (!cursor->getIsLeaf()) {
+
+        if (nodeAccess <= 100)
         {
             cout << to_string(nodeAccess) + ": ";
             cout << "[";
-            for (int i = 0; i < curNode->getKeys().size(); i++)
+            for (int i = 0; i < cursor->getKeys().size(); i++)
             {
-                cout << to_string(curNode->getKey(i)) + ",";
+                cout << to_string(cursor->getKey(i)) + ",";
             }
             cout << "]" << endl;
         }
+        cursorKeys = cursor->getKeys();
+        for (int i = cursorKeys.size() - 1; i >= 0; i--)
 
-        parentNode = curNode;
-        for (int i = 0; i < parentNode->getKeys().size(); i++)
-        {
-
-            if (minKey <= parentNode->getKey(i))
-            {
-                curNode = parentNode->getChild(i);
-                nodeAccess++;
+            if (cursorKeys.at(i) <= minKey) {
+                cursor = (InternalNode *) cursor->getChild(i + 1);
                 break;
+            } else if (i == 0) {
+                cursor = (InternalNode *) cursor->getChild(0);
             }
-
-            if (i == parentNode->getKeys().size() - 1)
-            {
-                curNode = parentNode->getChild(i + 1);
-                nodeAccess++;
-                break;
-            }
-        }
+        nodeAccess++;
     }
 
-    LeafNode *leafNode = (LeafNode *)curNode;
+    LeafNode *leafNode = (LeafNode *)cursor;
     bool completed = false;
     while (!completed && leafNode)
     {
         nodeAccess++;
 
-        if (nodeAccess <= 5)
+        if (nodeAccess <= 100)
         {
             cout << to_string(nodeAccess) + ": ";
             cout << "[";
@@ -477,7 +462,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
             }
             if (keys.at(i) >= minKey)
             {
-                for (Address *add : leafNode->getRecord(i))
+                for (Address *add : leafNode->getAddressNode(i)->getAddresses())
                 {
                     requiredAddresses.push_back(add);
                 }
@@ -497,7 +482,7 @@ vector<Address *> BPlusTree::deleteKey(int key)
 
     LeafNode *requiredLeafNode = getLeafNode(key);
     vector<int> keysOfLeafNode = requiredLeafNode->getKeys();
-    vector<Address *> addressesToBeDeleted;
+    vector<Address*> toReturn;
 
     int index = INT_MAX;
     for (int i = 0; i < keysOfLeafNode.size(); i++)
@@ -511,12 +496,13 @@ vector<Address *> BPlusTree::deleteKey(int key)
     if (index == INT_MAX)
     {
         cout << "No such key exists in B+ Tree!" << endl;
-        return addressesToBeDeleted;
+        return toReturn;
     }
-    addressesToBeDeleted = requiredLeafNode->getRecord(index);
+    vector<Address *> addressesToBeDeleted(requiredLeafNode->getAddressNode(index)->getAddresses());
+
     bool nonLeafNodeContainsKey = false;
 
-    Node *temp = (Node *)requiredLeafNode->getParent();
+    Node *temp = (Node *)requiredLeafNode->getParent(root);
 
     while (temp)
     {
@@ -529,7 +515,7 @@ vector<Address *> BPlusTree::deleteKey(int key)
                 break;
             }
         }
-        temp = temp->getParent();
+        temp = temp->getParent(root);
     }
 
     // Simplest Case
@@ -541,14 +527,14 @@ vector<Address *> BPlusTree::deleteKey(int key)
 
     if (requiredLeafNode->getKeys().size() - 1 < leafMinKeys)
     {
-        Node *parentNode = requiredLeafNode->getParent();
+        InternalNode *parentNode = (InternalNode*) requiredLeafNode->getParent(root);
         requiredLeafNode->deleteRecord(index);
         cureLeaf(requiredLeafNode);
         cureParent(parentNode);
     }
     else
     {
-        Node *parentNode = requiredLeafNode->getParent();
+        InternalNode *parentNode = (InternalNode*) requiredLeafNode->getParent(root);
         requiredLeafNode->deleteRecord(index);
         cureParent(parentNode);
     }
@@ -556,14 +542,14 @@ vector<Address *> BPlusTree::deleteKey(int key)
     return addressesToBeDeleted;
 }
 
-void BPlusTree::cureParent(Node *parentNode)
+void BPlusTree::cureParent(InternalNode *parentNode)
 {
 
     int minimumNumberOfChildren = parentMinKeys + 1;
-    Node *newParentNode;
+    InternalNode *newParentNode;
 
     // if parentNode is rootNode // also the termination condition for this recursive function.
-    if (parentNode->getIsRoot())
+    if (parentNode==root)
     {
 
         // root node has more than 1 child
@@ -582,9 +568,9 @@ void BPlusTree::cureParent(Node *parentNode)
         // during the deletion process, there are times when the root has only left with 1 child.
         if (parentNode->getChildren().size() == 1)
         {
-            parentNode->getChild(0)->setIsRoot(true);
-            root = parentNode->getChild(0);
-            parentNode->deleteNode();
+            InternalNode* newRoot = (InternalNode*) parentNode->getChild(0);
+            parentNode->deleteNode(root);
+            root = newRoot;
             deletedCount++;
             height--;
             return;
@@ -596,15 +582,16 @@ void BPlusTree::cureParent(Node *parentNode)
         Node *child = parentNode->getChild(0);
         parentNode->deleteChild(child);
         parentNode->addChild(child);
-        newParentNode = parentNode->getParent();
+        newParentNode = (InternalNode*) parentNode->getParent(root);
     }
 
-    // borrow or merge from neighbours!
+        // borrow or merge from neighbours!
     else
     {
+        InternalNode* parent = (InternalNode*) parentNode->getParent(root);
 
-        Node *before = parentNode->getParent()->getChildBefore(parentNode);
-        Node *after = parentNode->getParent()->getChildAfter(parentNode);
+        InternalNode *before = (InternalNode*) parent->getChildBefore(parentNode);
+        InternalNode *after = (InternalNode*) parent->getChildAfter(parentNode);
 
         int numberOfKeysSpareB = 0;
         int numberOfKeysSpareA = 0;
@@ -637,9 +624,9 @@ void BPlusTree::cureParent(Node *parentNode)
                 parentNode->addChild(childNeededToMove);
                 before->deleteChild(childNeededToMove);
             }
-            newParentNode = parentNode->getParent();
+            newParentNode = (InternalNode*) parentNode->getParent(root);
         }
-        // Merge 2 parent nodes
+            // Merge 2 parent nodes
         else
         {
             if (after)
@@ -656,8 +643,8 @@ void BPlusTree::cureParent(Node *parentNode)
                     before->addChild(parentNode->getChild(i));
                 }
             }
-            newParentNode = parentNode->getParent();
-            parentNode->deleteNode();
+            newParentNode = (InternalNode*) parentNode->getParent(root);
+            parentNode->deleteNode(root);
             deletedCount++;
         }
     }
@@ -675,8 +662,10 @@ void BPlusTree::cureLeaf(LeafNode *leaf)
         return;
     }
 
-    LeafNode *before = (LeafNode *)leaf->getParent()->getChildBefore(leaf);
-    LeafNode *after = (LeafNode *)leaf->getParent()->getChildAfter(leaf);
+    InternalNode* parentNode = (InternalNode*) leaf->getParent(root);
+
+    LeafNode *before = (LeafNode *)parentNode->getChildBefore(leaf);
+    LeafNode *after = (LeafNode *)parentNode->getChildAfter(leaf);
 
     int numberOfKeysSpareB = 0;
     int numberOfKeysSpareA = 0;
@@ -700,38 +689,38 @@ void BPlusTree::cureLeaf(LeafNode *leaf)
         if (numberOfKeysSpareA >= 1)
         {
             leaf->addRecordAndKey(after->getKey(after->getKeys().size() - 1),
-                                  after->getRecord(after->getKeys().size() - 1));
+                                  after->getAddressNode(after->getKeys().size() - 1));
             after->deleteRecord(after->getKeys().size() - 1);
         }
         else
         {
             leaf->addRecordAndKey(before->getKey(before->getKeys().size() - 1),
-                                  before->getRecord(after->getKeys().size() - 1));
+                                  before->getAddressNode(after->getKeys().size() - 1));
             after->deleteRecord(before->getKeys().size() - 1);
         }
     }
 
-    // cannot borrow from siblings, need to merge
+        // cannot borrow from siblings, need to merge
     else
     {
         if (after)
         {
             for (int i = 0; i < leaf->getKeys().size(); i++)
             {
-                after->addRecordAndKey(leaf->getKey(i), leaf->getRecord(i));
+                after->addRecordAndKey(leaf->getKey(i), leaf->getAddressNode(i));
             }
         }
         else
         {
             for (int i = 0; i < leaf->getKeys().size(); i++)
             {
-                before->addRecordAndKey(leaf->getKey(i), leaf->getRecord(i));
+                before->addRecordAndKey(leaf->getKey(i), leaf->getAddressNode(i));
             }
         }
 
         if (!before)
         {
-            if (!copy->getIsRoot())
+            if (copy != root)
             {
                 int keyToFind;
                 if (copy->findSmallestKey() - (maxKeys + 1) > 0)
@@ -747,7 +736,7 @@ void BPlusTree::cureLeaf(LeafNode *leaf)
         }
 
         before->setNext(leaf->getNext());
-        leaf->deleteNode();
+        leaf->deleteNode(root);
         deletedCount++;
     }
 }

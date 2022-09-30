@@ -15,8 +15,7 @@ class Block {
     int maxRecords;
     int curRecords;
     vector<Record> records;
-
-public:
+    Block();
     Block(int blockSize);
     void displayBlock();
     bool insertRecord(Record record);
@@ -25,4 +24,4 @@ public:
 };
 
 
-#endif 
+#endif

@@ -14,6 +14,9 @@ class Record {
 
 public:
     Record(char tconst[10], float averageRating, int numVotes);
+
+    Record();
+
     void displayRecord();
     char getTconst();
     float getAverageRating();
@@ -23,4 +26,4 @@ public:
 };
 
 
-#endif 
+#endif

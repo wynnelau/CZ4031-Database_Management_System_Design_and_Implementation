@@ -54,4 +54,5 @@ bool Block::getAvailableSpace(){
     }
     else return false;
 }
+Block::Block() {}
 

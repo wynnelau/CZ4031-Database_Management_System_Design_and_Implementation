@@ -8,9 +8,7 @@ add_executable(
     B+Tree/Node.cpp 
     B+Tree/Node.h 
     B+Tree/LeafNode.cpp 
-    B+Tree/LeafNode.h 
-    Address.cpp 
-    Address.h 
+    B+Tree/LeafNode.h
     B+Tree/BPlusTree.cpp 
     B+Tree/BPlusTree.h
     Storage/Address.cpp
@@ -22,3 +20,4 @@ add_executable(
     Storage/Storage.cpp
     Storage/Storage.h
     )
+

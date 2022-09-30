@@ -8,6 +8,8 @@
 
 using namespace std;
 
+Record::Record() {}
+
 Record::Record(char tconst[10], float averageRating, int numVotes){
     isDeleted = false;
     strcpy(tconst,tconst);
