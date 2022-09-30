@@ -3,23 +3,19 @@
 #include <sstream>
 #include <cstring>
 #include <string>
-<<<<<<< HEAD
-=======
+
+
 #include <algorithm>
->>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
 
 using namespace std;
-
+# include "Storage/Storage.h"
 #include "B+Tree/BPlusTree.h"
 #include "Storage/Record.h"
-<<<<<<< HEAD
-#include "Storage/Storage.h"
-
 static Storage *storage;
 static BPlusTree *indexTree;
-=======
 #include "Storage/Block.h"
->>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
+
+
 
 void *experiment1And2(int blockSize) {
     cout << "=============================================================================" << endl;
@@ -44,7 +40,6 @@ void *experiment1And2(int blockSize) {
     int i = 0; // for testing purposes
 
     while (getline (filename, line) && i < 1) {
-        cout << line << endl;
 
         Record record;
         stringstream linestream(line);
@@ -110,13 +105,6 @@ void experiment5(BPlusTree *index) {
 // LAST STEP
 // TODO: Create a basic interface to choose from either block size of 200 and block size of 500
 
-<<<<<<< HEAD
-int main() {
-    experiment1And2(100);
-    experiment3(indexTree);
-    experiment4(indexTree);
-    experiment5(indexTree);
-=======
 int main()
 {
     int blksize, size;
@@ -138,10 +126,8 @@ int main()
             cout << "Error" << endl;
             return 0;
     }
-       // Block Size is set to 40. so now n = 3!
-    BPlusTree* index = experiment1And2(40); //put size in here
-    experiment3(index);
-    experiment4(index);
-    experiment5(index);
->>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
+    experiment1And2(size); //put size in here
+    experiment3(indexTree);
+    experiment4(indexTree);
+    experiment5(indexTree);
 }
