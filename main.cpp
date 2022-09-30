@@ -116,36 +116,33 @@ void experiment5(BPlusTree *index) {
 
 int main()
 {
-    while(true){
-        int blksize, size;
-        cout << "=============================================================================" << endl;
-        cout << "Choose block size (1/2) : " << endl;
-        cout << "1. 200B" << endl;
-        cout << "2. 500B" << endl;
-        cout << "3. Quit"<<endl;
-        cin >> blksize;
-        switch (blksize) {
-            case 1:
-                cout << "Block size set to 200B" << endl;
-                size = 200;
-                break;
-            case 2:
-                cout << "Block size set to 500B" << endl;
-                size = 500;
-                break;
-            case 3:
-                cout<<"Exiting..."<<endl;
-                return 0;
+    
+    int blksize, size;
+    cout << "=============================================================================" << endl;
+    cout << "Choose block size (1/2) : " << endl;
+    cout << "1. 200B" << endl;
+    cout << "2. 500B" << endl;
+    cout << "3. Quit"<<endl;
+    cin >> blksize;
+    switch (blksize) {
+        case 1:
+            cout << "Block size set to 200B" << endl;
+            size = 200;
+            break;
+        case 2:
+            cout << "Block size set to 500B" << endl;
+            size = 500;
+            break;
+        case 3:
+            cout<<"Exiting..."<<endl;
+            return 0;
 
-            default:
-                cout << "Error" << endl;
-                return 0;
-        }
-        experiment1And2(size);
-        experiment3(indexTree);
-        experiment4(indexTree);
-        experiment5(indexTree);
-
+        default:
+            cout << "Error" << endl;
+            return 0;
     }
-
+    experiment1And2(size);
+    experiment3(indexTree);
+    experiment4(indexTree);
+    experiment5(indexTree);    
 }
