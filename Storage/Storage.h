@@ -32,7 +32,8 @@ public:
     void getAllRecords();
 
     Record *getRecord(Address address);
-
+    int getNumberOfBlocksUsed();
+    float getSizeOfDatabase(int blockSize);
 };
 
 
