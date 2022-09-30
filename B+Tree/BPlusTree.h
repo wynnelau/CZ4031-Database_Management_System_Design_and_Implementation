@@ -11,7 +11,7 @@
 class BPlusTree
 {
 
-    const int size_pointer = 6;
+    const int size_pointer = 8;
     const int size_key = 4;
     int maxKeys;
     int parentMinKeys;

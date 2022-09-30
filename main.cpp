@@ -11,12 +11,11 @@ using namespace std;
 # include "Storage/Storage.h"
 #include "B+Tree/BPlusTree.h"
 #include "Storage/Record.h"
-static Storage *storage;
-static BPlusTree *indexTree;
 #include "Storage/Block.h"
 
 
-
+static Storage *storage;
+static BPlusTree *indexTree;
 void experiment1And2(int blockSize) {
     cout << "=============================================================================" << endl;
     cout << "Starting Experiment 1 and 2" << endl;
@@ -94,7 +93,7 @@ void experiment5(BPlusTree *index) {
 }
 
 // LAST STEP
-// TODO: Create a basic interface to choose from either block size of 200 and block size of 500
+// TODO: Create a basic interface to choose from either block size of 200 and block size of 500 maybe can add in a loop?
 
 int main()
 {
@@ -117,7 +116,7 @@ int main()
             cout << "Error" << endl;
             return 0;
     }
-    experiment1And2(size); //put size in here
+    experiment1And2(size);
     experiment3(indexTree);
     experiment4(indexTree);
     experiment5(indexTree);

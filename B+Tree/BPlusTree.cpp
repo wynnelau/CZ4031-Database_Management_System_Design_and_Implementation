@@ -404,7 +404,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
          << endl;
     cout << "Index nodes visited: " << endl;
 
-    int nodeAccess = 0;
+    int nodeAccess = 1;
     vector<Address *> requiredAddresses;
 
 
@@ -439,8 +439,6 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
     bool completed = false;
     while (!completed && leafNode)
     {
-        nodeAccess++;
-
         if (nodeAccess <= 5)
         {
             cout << to_string(nodeAccess) + ": ";
@@ -469,6 +467,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
             }
         }
         leafNode = leafNode->getNext();
+        nodeAccess++;
     }
     cout << "Total number of index nodes visited: " + to_string(nodeAccess) << endl;
     std::sort(requiredAddresses.begin(), requiredAddresses.end(), comparator);
