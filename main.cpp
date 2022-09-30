@@ -3,21 +3,31 @@
 #include <sstream>
 #include <cstring>
 #include <string>
+<<<<<<< HEAD
+=======
+#include <algorithm>
+>>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
 
 using namespace std;
 
 #include "B+Tree/BPlusTree.h"
 #include "Storage/Record.h"
+<<<<<<< HEAD
 #include "Storage/Storage.h"
 
 static Storage *storage;
 static BPlusTree *indexTree;
+=======
+#include "Storage/Block.h"
+>>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
 
 void *experiment1And2(int blockSize) {
     cout << "=============================================================================" << endl;
     cout << "Starting Experiment 1 and 2" << endl;
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
     // TODO: Design the storage
+    // Each record is 20 Bytes
+
     // TODO: Store the data into the disk
 
 
@@ -32,8 +42,9 @@ void *experiment1And2(int blockSize) {
 
 
     int i = 0; // for testing purposes
-    while (getline(filename, line)) {
-//        cout << line << endl;
+
+    while (getline (filename, line) && i < 1) {
+        cout << line << endl;
 
         Record record;
         stringstream linestream(line);
@@ -97,11 +108,40 @@ void experiment5(BPlusTree *index) {
 }
 
 // LAST STEP
-// TODO: Create a basic interface to choose from either block size of 100 and block size of 500
+// TODO: Create a basic interface to choose from either block size of 200 and block size of 500
 
+<<<<<<< HEAD
 int main() {
     experiment1And2(100);
     experiment3(indexTree);
     experiment4(indexTree);
     experiment5(indexTree);
+=======
+int main()
+{
+    int blksize, size;
+    cout << "=============================================================================" << endl;
+    cout << "Choose block size (1/2) : " << endl;
+    cout << "1. 200B" << endl;
+    cout << "2. 500B" << endl;
+    cin >> blksize;
+    switch (blksize) {
+        case 1:
+            cout << "Block size set to 200B" << endl;
+            size = 200;
+            break;
+        case 2:
+            cout << "Block size set to 500B" << endl;
+            size = 500;
+            break;
+        default:
+            cout << "Error" << endl;
+            return 0;
+    }
+       // Block Size is set to 40. so now n = 3!
+    BPlusTree* index = experiment1And2(40); //put size in here
+    experiment3(index);
+    experiment4(index);
+    experiment5(index);
+>>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
 }

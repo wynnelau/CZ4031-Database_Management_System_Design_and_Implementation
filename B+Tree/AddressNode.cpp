@@ -3,6 +3,7 @@
 //
 
 #include "AddressNode.h"
+#include <algorithm>
 
 vector<Address*> AddressNode::getAddresses(){
     return addresses;

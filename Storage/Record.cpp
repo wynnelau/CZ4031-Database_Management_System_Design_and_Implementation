@@ -10,15 +10,15 @@ using namespace std;
 
 Record::Record() {}
 
-Record::Record(char* tconst, float averageRating, int numVotes){
-    isDeleted = false;
+Record::Record(char tconst[10], float averageRating, int numVotes){
+    this->isDeleted = false;
     strcpy(this->tconst,tconst);
     this->averageRating = averageRating;
     this->numVotes = numVotes;
 }
 
 char Record::getTconst(){
-    return tconst[10];
+    return *tconst;
 }
 
 float Record::getAverageRating(){
@@ -34,10 +34,14 @@ bool Record::getIsDeleted(){
 }
 
 bool Record::setIsDeleted(bool del){
-    isDeleted = del;
+    this->isDeleted = del;
     return true;
 }
 
 void Record::displayRecord(){
+<<<<<<< HEAD
     cout << " tconst :" << (tconst) << " averageRating : " << averageRating << " numVotes : " << numVotes << " isDeleted : " << isDeleted << endl;
+=======
+    cout << "tconst :" << tconst << " averageRating : " << averageRating << " numVotes : " << numVotes << " isDeleted : " << isDeleted << endl;
+>>>>>>> 7212123dcd8ba6d258eff0eb4478cdde367f45ec
 }

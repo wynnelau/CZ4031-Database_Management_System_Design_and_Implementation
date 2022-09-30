@@ -3,6 +3,7 @@
 //
 
 #include "InternalNode.h"
+#include <algorithm>
 
 // children functions
 vector<Node *> InternalNode::getChildren() {
