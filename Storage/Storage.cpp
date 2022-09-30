@@ -21,12 +21,21 @@ Storage::Storage(size_t memorySize, size_t blockSize) {
 Address *Storage::insertRecord(Record record) {
     int insertedOffset = 0;
 
-//    if (!blocksThatHaveDeletes.empty()) {
-//        blocks.at(blocksThatHaveDeletes.at(0)).insertRecord(record);
-//    }
+    if (!blocksThatHaveDeletes.empty()) {
+        insertedOffset = blocks.at(blocksThatHaveDeletes.at(0)).insertRecord(record);
+        return new Address(blocks.at(blocksThatHaveDeletes.at(0)).getNumber(),insertedOffset);
+    }
+
+    // try to insert at currentbloc
+    if(!blocks.empty()){
+        if(blocks.at(blocks.size()-1).getAvailableSpace()){
+            insertedOffset = blocks.at(blocks.size()-1).insertRecord(record);
+            return new Address(blocks.size()-1,insertedOffset);
+        }
+    }
 
     if (blocks.size() < maxBlocks) {
-        Block newBlock = Block(blockSize);
+        Block newBlock = Block(blockSize,blocks.size()-1);
         blocks.push_back(newBlock);
         blocks.at(blocks.size() - 1).insertRecord(record);
         curBlocks++;

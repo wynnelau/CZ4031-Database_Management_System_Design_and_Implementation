@@ -9,11 +9,16 @@
 
 using namespace std;
 
-Block::Block(int blockSize) {
+Block::Block(int blockSize,int blockNumber) {
 
     maxRecords = blockSize / sizeof(Record);
     curRecords = 0;
     vector<Record> records = vector<Record>(maxRecords);
+    number = blockNumber;
+}
+
+int Block::getNumber() {
+    return number;
 }
 
 void Block::displayBlock() {

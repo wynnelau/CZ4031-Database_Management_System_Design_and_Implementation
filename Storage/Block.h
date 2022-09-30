@@ -18,13 +18,19 @@ class Block
 
 public:
     Block();
-    Block(int blockSize);
+    Block(int blockSize, int blockNumber);
+    int number;
     void displayBlock();
     int insertRecord(Record record);
     bool deleteRecord(int offset);
     bool getAvailableSpace();
 
     Record *getRecord(int offset);
+
+    int getNumber();
 };
 
+
+// block: can hold 20 records
+// total number of blocks: 2,500,000
 #endif

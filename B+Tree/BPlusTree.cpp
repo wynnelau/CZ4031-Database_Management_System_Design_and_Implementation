@@ -457,8 +457,6 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
         {
             if (keys.at(i) >= maxKey)
             {
-                cout<<"Reached more than 40000: ";
-                cout<<keys.at(i)<<endl;
                 completed = true;
                 break;
             }

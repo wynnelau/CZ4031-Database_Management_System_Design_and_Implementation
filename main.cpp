@@ -23,16 +23,12 @@ void experiment1And2(int blockSize) {
     cout << "Adding the movies data into storage and creating an index on numVotes." << endl;
     // Each record is 20 Bytes
 
-    storage = new Storage(150000000, 100);
-    indexTree = new BPlusTree(100);
+    storage = new Storage(500000000, blockSize);
+    indexTree = new BPlusTree(blockSize);
 
     string line;
     ifstream filename("../data/data.tsv");
     filename.ignore(10000, '\n');
-    vector<Record> recordsInserted;
-    vector<Address *> addressesInserted;
-
-
 
     while (getline (filename, line)) {
 
@@ -53,8 +49,6 @@ void experiment1And2(int blockSize) {
         Address* addressNeeded = storage->insertRecord(record);
         indexTree->insert(record.numVotes, addressNeeded);
     }
-
-
     // TODO: Get the number of blocks used
     // TODO: Get the size of the database (in MB)
     indexTree->getBPlusTreeStats();
