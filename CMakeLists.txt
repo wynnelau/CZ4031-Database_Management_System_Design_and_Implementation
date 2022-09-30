@@ -9,15 +9,17 @@ add_executable(
     B+Tree/Node.h 
     B+Tree/LeafNode.cpp 
     B+Tree/LeafNode.h
-    B+Tree/BPlusTree.cpp 
-    B+Tree/BPlusTree.h
     Storage/Address.cpp
     Storage/Address.h
-    Storage/Record.cpp
-    Storage/Record.h
-    Storage/Block.cpp
-    Storage/Block.h
-    Storage/Storage.cpp
-    Storage/Storage.h
-    )
-
+    B+Tree/BPlusTree.cpp 
+    B+Tree/BPlusTree.h
+    B+Tree/InternalNode.cpp 
+    B+Tree/InternalNode.h 
+    B+Tree/AddressNode.cpp
+    B+Tree/AddressNode.h 
+    Storage/Block.cpp 
+    Storage/Block.h 
+    Storage/Record.cpp 
+    Storage/Record.h 
+    Storage/Storage.cpp 
+    Storage/Storage.h)
