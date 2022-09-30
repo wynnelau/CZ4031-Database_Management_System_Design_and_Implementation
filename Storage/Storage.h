@@ -19,11 +19,20 @@ class Storage {
     int maxBlocks;
     int curBlocks;
     vector<Block> blocks;
+    vector<int> blocksThatHaveDeletes;
+
 
 public:
     Storage(size_t memorySize, size_t blockSize);
-    bool insertRecord(Record record);
+    Address * insertRecord(Record record);
     bool deleteRecord(Address address);
+
+    Storage();
+
+    void getAllRecords();
+
+    Record *getRecord(Address address);
+
 };
 
 

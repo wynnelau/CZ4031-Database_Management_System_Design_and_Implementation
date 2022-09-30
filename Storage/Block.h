@@ -20,9 +20,11 @@ public:
     Block();
     Block(int blockSize);
     void displayBlock();
-    bool insertRecord(Record record);
+    int insertRecord(Record record);
     bool deleteRecord(int offset);
     bool getAvailableSpace();
+
+    Record *getRecord(int offset);
 };
 
 #endif

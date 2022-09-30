@@ -413,7 +413,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
 
     while (!cursor->getIsLeaf()) {
 
-        if (nodeAccess <= 100)
+        if (nodeAccess <= 5)
         {
             cout << to_string(nodeAccess) + ": ";
             cout << "[";
@@ -441,7 +441,7 @@ vector<Address *> BPlusTree::getRecordsWithRange(int minKey, int maxKey)
     {
         nodeAccess++;
 
-        if (nodeAccess <= 100)
+        if (nodeAccess <= 5)
         {
             cout << to_string(nodeAccess) + ": ";
             cout << "[";
