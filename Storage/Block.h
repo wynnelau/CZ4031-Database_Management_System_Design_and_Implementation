@@ -10,11 +10,13 @@
 
 using namespace std;
 
-
-class Block {
+class Block
+{
     int maxRecords;
     int curRecords;
     vector<Record> records;
+
+public:
     Block();
     Block(int blockSize);
     void displayBlock();
@@ -22,6 +24,5 @@ class Block {
     bool deleteRecord(int offset);
     bool getAvailableSpace();
 };
-
 
 #endif
