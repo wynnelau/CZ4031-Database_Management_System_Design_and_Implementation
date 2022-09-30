@@ -1,23 +1,14 @@
 //
-// Created by Jerome Chew on 26/9/22.
+// Created by Akshit Karanam on 30/9/22.
 //
 
-#ifndef RECORD_H
-#define RECORD_H
+#ifndef CZ4031_PROJECT1_RECORD_H
+#define CZ4031_PROJECT1_RECORD_H
 
 
 class Record {
-    char tconst[10];
-    float averageRating;
-    int numVotes;
 
-public:
-    Record(char tconst[10], float averageRating, int numVotes);
-    void displayRecord();
-    char getTconst();
-    float getAverageRating();
-    int getNumVotes();
 };
 
 
-#endif 
+#endif //CZ4031_PROJECT1_RECORD_H

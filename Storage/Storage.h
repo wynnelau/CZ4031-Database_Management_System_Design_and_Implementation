@@ -1,25 +1,14 @@
 //
-// Created by Jerome Chew on 26/9/22.
+// Created by Akshit Karanam on 30/9/22.
 //
 
-#ifndef STORAGE_H
-#define STORAGE_H
-#include "Record.h"
-#include "Block.h"
-#include <iostream>
-#include <vector>
-
-using namespace std;
+#ifndef CZ4031_PROJECT1_STORAGE_H
+#define CZ4031_PROJECT1_STORAGE_H
 
 
 class Storage {
-    int blockSize;
-    int memorySize;
-    vector<Block> blocks;
 
-public:
-    Storage(size_t memorySize, size_t blockSize);
 };
 
 
-#endif 
+#endif //CZ4031_PROJECT1_STORAGE_H
