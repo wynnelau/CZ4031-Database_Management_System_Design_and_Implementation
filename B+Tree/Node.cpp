@@ -4,6 +4,8 @@
 
 #include "Node.h"
 #include "InternalNode.h"
+#include <algorithm>
+
 
 Node::Node() {}
 
