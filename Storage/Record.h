@@ -1,14 +1,29 @@
 //
-// Created by Akshit Karanam on 30/9/22.
+// Created by Jerome Chew on 26/9/22.
 //
 
-#ifndef CZ4031_PROJECT1_RECORD_H
-#define CZ4031_PROJECT1_RECORD_H
+#ifndef RECORD_H
+#define RECORD_H
 
 
 class Record {
+    bool isDeleted;
+    char tconst[10];
+    float averageRating;
+    int numVotes;
 
+public:
+    Record(char tconst[10], float averageRating, int numVotes);
+
+    Record();
+
+    void displayRecord();
+    char getTconst();
+    float getAverageRating();
+    int getNumVotes();
+    bool getIsDeleted();
+    bool setIsDeleted(bool del);
 };
 
 
-#endif //CZ4031_PROJECT1_RECORD_H
+#endif

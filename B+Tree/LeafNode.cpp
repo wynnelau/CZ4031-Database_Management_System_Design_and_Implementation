@@ -9,37 +9,37 @@ LeafNode::LeafNode(){
 
 }
 
-vector<vector<Address *>> LeafNode::getRecords()
+vector<AddressNode*> LeafNode::getAddressNodes()
 {
-    return records;
+    return addressNodes;
 }
 
-vector<Address *> LeafNode::getRecord(int index)
+AddressNode* LeafNode::getAddressNode(int index)
 {
-    return records.at(index);
+    return addressNodes.at(index);
 }
 
 void LeafNode::addRecordToExistingLeafKey(int index, Address *address)
 {
-    records.at(index).push_back(address);
+    addressNodes.at(index)->addAddress(address);
 }
 
-int LeafNode::addRecordAndKey(int key, vector<Address *> addresses)
+int LeafNode::addRecordAndKey(int key, AddressNode* addressNode)
 {
 
-    if (records.empty())
+    if (addressNodes.empty())
     {
-        records.push_back(addresses);
+        addressNodes.push_back(addressNode);
         addKey(key);
         return 0;
     }
     int index;
     index = addKey(key);
-    records.push_back(addresses);
-    for (int i = records.size() - 2; i >= index; i--)
-        records.at(i + 1) = records.at(i);
+    addressNodes.push_back(addressNode);
+    for (int i = addressNodes.size() - 2; i >= index; i--)
+        addressNodes.at(i + 1) = addressNodes.at(i);
 
-    records.at(index) = addresses;
+    addressNodes.at(index) = addressNode;
     return index;
 }
 
@@ -56,12 +56,12 @@ void LeafNode::setNext(LeafNode *sibling)
 void LeafNode::deleteRecord(int index)
 {
     deleteKey(index);
-    records.erase(records.begin() + index);
+    addressNodes.erase(addressNodes.begin() + index);
 }
 
 void LeafNode::deleteRecords()
 {
-    records.clear();
+    addressNodes.clear();
 }
 
 bool LeafNode::getIsLeaf() {

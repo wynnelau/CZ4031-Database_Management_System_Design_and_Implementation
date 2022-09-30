@@ -5,9 +5,9 @@
 #ifndef LEAFNODE_H
 #define LEAFNODE_H
 #include "Node.h"
-#include "../Address.h"
 #include <iostream>
 #include <vector>
+#include "AddressNode.h"
 
 using namespace std;
 
@@ -15,15 +15,15 @@ class LeafNode : public Node
 {
 
 private:
-    vector<vector<Address *>> records;
+    vector<AddressNode*> addressNodes;
     LeafNode *next{};
 
 public:
     LeafNode();
-    vector<vector<Address *>> getRecords();
-    vector<Address *> getRecord(int index);
-    int addRecordAndKey(int key, vector<Address *> address);
-    void addRecordToExistingLeafKey(int index, Address *address);
+    vector<AddressNode*> getAddressNodes();
+    AddressNode* getAddressNode(int index);
+    int addRecordAndKey(int key, AddressNode* addressNode);
+    void addRecordToExistingLeafKey(int index, Address* address);
     LeafNode *getNext();
     void setNext(LeafNode *sibling);
     void deleteRecord(int index);
