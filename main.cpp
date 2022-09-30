@@ -48,8 +48,10 @@ void experiment1And2(int blockSize) {
         Address* addressNeeded = storage->insertRecord(record);
         indexTree->insert(record.numVotes, addressNeeded);
     }
-    // TODO: Get the number of blocks used
-    // TODO: Get the size of the database (in MB)
+
+    // print results of experiment 1
+    cout<<"Number of blocks used : " <<storage->getNumberOfBlocksUsed()<<endl;
+    cout<<"Size of the database (in MB) : " <<storage->getSizeOfDatabase(blockSize)<<endl;
     indexTree->getBPlusTreeStats();
 }
 

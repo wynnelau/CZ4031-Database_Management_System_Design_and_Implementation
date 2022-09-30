@@ -69,7 +69,14 @@ void Storage::getAllRecords() {
 
 }
 
+int Storage::getNumberOfBlocksUsed(){
+    return blocks.size();
+}
 
+
+float Storage::getSizeOfDatabase(int blockSize){
+    return (blocks.size()*blockSize)/((float)1000 * 1000);
+}
 
 
 
