@@ -1,12 +1,12 @@
 ## Running on Windows
 
 ### To install gcc
-Step 1: Install Mingw-w64 via Msys2. [https://www.msys2.org](https://www.msys2.org)
-Step 2: Once installed, a Mingw-w64 environment is opened in a window. Install the full Mingw-w64 toolchain
+Step 1: Install Mingw-w64 via Msys2. [https://www.msys2.org](https://www.msys2.org)   
+Step 2: Once installed, a Mingw-w64 environment is opened in a window. Install the full Mingw-w64 toolchain   
 `pacman -S --needed base-devel mingw-w64-x86_64-toolchain`
-Step 3: Add Mingw-w64 bin folder to your Windows PATH environment variable. 
+Step 3: Add Mingw-w64 bin folder to your Windows PATH environment variable.     
 Step 4: In a new terminal window, to check if gcc has been installed correctly, type
-`gcc --version`.
+`gcc --version`.    
 If you don't see the expected output or g++ or gdb is not a recognized command, make sure your PATH entry matches the Mingw-w64 binary location where the compiler tools are located.
 
 ### Run the program
