@@ -57,3 +57,9 @@ After resolving merge conflicts(if any) submit a pull request on GitHub.
 4. Request a merge to master branch.
 
 Once a pull requested is created, every member checks it to see if there are any part of his code that has been accidentally changed. Once we confirm there are no issue, then the branch is merged with the master branch.
+
+```sh
+set Path=C:\MinGW\bin;%PATH%
+>g++ main.cpp -o main  Address.o Record.o Block.o Storage.o Node.o InternalNode.o LeafNode.o AddressNode.o BPlusTree.o
+main
+```
