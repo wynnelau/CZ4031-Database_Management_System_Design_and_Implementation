@@ -10,10 +10,10 @@ Step 4: In a new terminal window, to check if gcc has been installed correctly, 
 If you don't see the expected output or g++ or gdb is not a recognized command, make sure your PATH entry matches the Mingw-w64 binary location where the compiler tools are located.
 
 ### Run the program
-Step 1 : Clone the repository from: [https://github.com/akshitkaranam/CZ4031_Project1](https://github.com/akshitkaranam/CZ4031_Project1.git)
+Step 1 : Clone the repository from: [https://github.com/akshitkaranam/CZ4031_Project1](https://github.com/akshitkaranam/CZ4031_Project1.git)    
 
-Step 2 : Open a new terminal window, and navigate to the project directory
-Step 3 :  Compile all the relevant files in the src folder
+Step 2 : Open a new terminal window, and navigate to the project directory    
+Step 3 :  Compile all the relevant files in the src folder    
 
 ```sh
 cd src
