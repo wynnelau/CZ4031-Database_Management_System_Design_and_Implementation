@@ -3,7 +3,10 @@
 This project was built as part of the coursework for CZ4032: Database Systems Principles and is written on C++, with the usage of OOP principles such as Abstraction and Polymorphism.
 
 Here the objective was to design and implement the following two components of a database management system: storage and indexing (B+ Tree).
- 
+
+This project was exectued with the help of 4 other team members: Vincent, Jerome, Wynne and Ruo Qing.
+
+
 ## Running on Windows
 
 ### To install gcc
