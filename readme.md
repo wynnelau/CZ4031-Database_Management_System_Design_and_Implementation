@@ -1,4 +1,7 @@
 ## About
+
+• Designed and implemented the storage and indexing components based on the requirements of the project using C++ such that the data can be stored properly.  
+• Built a B+ tree by inserting the records sequentially using C++ to make it easier to retrieve and delete records accordingly.
  
 This project was built as part of the coursework for CZ4031: Database Systems Principles and is written on C++, with the usage of OOP principles such as Abstraction and Polymorphism.
 
