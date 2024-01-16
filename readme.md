@@ -1,9 +1,11 @@
-## About
+# CZ4031-Database_Management_System_Design_and_Implementation
 Group project done in Year 3 Sem 1
 
 • Designed and implemented the storage and indexing components based on the requirements of the project using C++ such that the data can be stored properly.  
 • Built a B+ tree by inserting the records sequentially using C++ to make it easier to retrieve and delete records accordingly.
- 
+
+## About
+
 This project was built as part of the coursework for CZ4031: Database Systems Principles and is written on C++, with the usage of OOP principles such as Abstraction and Polymorphism.
 
 Here the objective was to design and implement the following two components of a database management system: storage and indexing (B+ Tree).
